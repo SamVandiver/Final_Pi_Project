@@ -1,0 +1,2 @@
+1. get the first pi's program working
+2. get the second pi's program working
