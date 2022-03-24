@@ -1,2 +1,20 @@
-1. get the first pi's program working
-2. get the second pi's program working
+1. get the first pi's program finished
+    a. implement modules (consult the slideshow on google drive)
+        -implement Wires
+        -implement The Button
+        -implement Simon Says
+        -implement Memory
+        -implement Morse Code (maybe with the ranging module)
+        -implement Mazes (MUST HAVE)
+        -implement Passwords
+        -implement some needy modules
+    b. implement timer
+    c. implement strike system
+    d. implement the hamburger menu to switch modules
+    d. connect the game setup to a game code
+2. get the second pi's program finished
+    a. figure out TCP/IP
+    b. get the second pi to send the game setup code to the first pi
+    c. get the second pi to generate a game code that acually works
+    d. get the second pi to walk the auxiliary through the breadboard setup
+3. get the breadboard layout finished
