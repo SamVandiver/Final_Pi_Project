@@ -2,6 +2,7 @@ import pygame
 import random
 import socket
 import sys
+import codeGenLibrary
 
 #   constants
 #       pi stuff
