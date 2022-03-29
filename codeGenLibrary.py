@@ -159,6 +159,7 @@ BUTTON_BLUE = "1"
 BUTTON_WHITE = "2"
 BUTTON_YELLOW = "3"
 BUTTON_RED = "4"
+
 BUTTON_ABORT = "1"
 BUTTON_DETONATE = "2"
 BUTTON_HOLD = "3"
@@ -181,6 +182,7 @@ MORSE_STEAK = "c"
 MORSE_STING = "d"
 MORSE_VECTOR = "e"
 MORSE_BEATS = "f"
+
 MORSE_CODES = [
 MORSE_SHELL,
 MORSE_HALLS,
@@ -198,6 +200,83 @@ MORSE_STEAK,
 MORSE_STING,
 MORSE_VECTOR,
 MORSE_BEATS
+]
+
+#   maze variables
+MAZES_1 = "1"
+MAZES_2 = "2"
+MAZES_3 = "3"
+MAZES_4 = "4"
+MAZES_5 = "5"
+MAZES_6 = "6"
+MAZES_7 = "7"
+MAZES_8 = "8"
+MAZES_9 = "9"
+
+MAZES_CHOICES = [
+MAZES_1,
+MAZES_2,
+MAZES_3,
+MAZES_4,
+MAZES_5,
+MAZES_6,
+MAZES_7,
+MAZES_8,
+MAZES_9
+]
+
+#   passwords variables
+PASSWORDS_A = "1"
+PASSWORDS_B = "2"
+PASSWORDS_C = "3"
+PASSWORDS_E = "4"
+PASSWORDS_F = "5"
+PASSWORDS_G = "6"
+PASSWORDS_H = "7"
+PASSWORDS_L = "8"
+PASSWORDS_N = "9"
+PASSWORDS_O = "0"
+PASSWORDS_P = "a"
+PASSWORDS_R = "b"
+PASSWORDS_S = "c"
+PASSWORDS_T = "d"
+PASSWORDS_W = "e"
+
+PASSWORDS_1 = "1"
+PASSWORDS_2 = "2"
+PASSWORDS_3 = "3"
+PASSWORDS_4 = "4"
+PASSWORDS_5 = "5"
+PASSWORDS_6 = "6"
+
+PASSWORDS_LEN1 = [
+PASSWORDS_B,
+PASSWORDS_C,
+PASSWORDS_E,
+PASSWORDS_G,
+PASSWORDS_H,
+PASSWORDS_N,
+PASSWORDS_O,
+PASSWORDS_R
+]
+
+PASSWORDS_LEN2 = [
+PASSWORDS_F,
+PASSWORDS_L
+]
+
+PASSWORDS_LEN3 = [
+PASSWORDS_A,
+PASSWORDS_P
+]
+
+PASSWORDS_LEN5 = [
+PASSWORDS_S
+]
+
+PASSWORDS_LEN6 = [
+PASSWORDS_T,
+PASSWORDS_W
 ]
 
 
@@ -241,7 +320,7 @@ def memorySolution(segment):
 #morse
 def createMorse():
     morseSegment = MORSE_START
-    morseCode = choice([MORSE_CODES])
+    morseCode = choice(MORSE_CODES)
     return morseSegment + morseCode
 
 def morseSolution(segment):
@@ -249,14 +328,17 @@ def morseSolution(segment):
 
 #maze
 def createMaze():
-    pass
+    mazeSegment = MAZES_START
+    mazePick = choice(MAZES_CHOICES)
+    return mazeSegment + mazePick
 
 def mazeSolution(segment):
     pass
 
 #password
 def createPasswords():
-    pass
+    passwordsSegment = PASSWORDS_START
+
 
 def passwordsSolution(segment):
     pass
