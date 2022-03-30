@@ -137,6 +137,39 @@ Needy: H
         2: Capacitor
 '''
 
+#   initials variables
+#       serial number
+ODD_VOWEL = "1"
+ODD_NO_VOWEL = "2"
+EVEN_VOWEL = "3"
+EVEN_NO_VOWEL = "4"
+#       list of serial numbers
+SERIAL_NUMBERS = [
+ODD_VOWEL,
+ODD_NO_VOWEL,
+EVEN_VOWEL,
+EVEN_NO_VOWEL
+]
+
+#       indicator
+NO_INDICATOR = "1"
+CAR_INDICATOR = "2"
+FRK_INDICATOR = "3"
+OTHER_INDICATOR = "4"
+
+#       batteries
+BATTERIES_0 = "0"
+BATTERIES_1 = "1"
+BATTERIES_2 = "2"
+BATTERIES_3 = "3"
+#       list of numbers of batteries
+BATTERIES_LIST = [
+BATTERIES_0,
+BATTERIES_1,
+BATTERIES_2,
+BATTERIES_3
+]
+
 #   segment start variables
 WIRE_START = ".a"
 BUTTON_START = ".b"
@@ -148,6 +181,7 @@ PASSWORDS_START = ".g"
 NEEDY_START = ".h"
 
 #   wires variables
+#       wire color
 WIRE_RED  = "1"
 WIRE_BLUE  = "2"
 WIRE_WHITE  = "3"
@@ -155,17 +189,20 @@ WIRE_YELLOW  = "4"
 WIRE_BLACK = "5"
 
 #   buttons variables
+#       button color
 BUTTON_BLUE = "1"
 BUTTON_WHITE = "2"
 BUTTON_YELLOW = "3"
 BUTTON_RED = "4"
 
+#       button text
 BUTTON_ABORT = "1"
 BUTTON_DETONATE = "2"
 BUTTON_HOLD = "3"
 BUTTON_PRESS = "4"
 
 #   morse variables
+#       what the morse phrase is
 MORSE_SHELL = "1"
 MORSE_HALLS = "2"
 MORSE_SLICK = "3"
@@ -183,6 +220,7 @@ MORSE_STING = "d"
 MORSE_VECTOR = "e"
 MORSE_BEATS = "f"
 
+#       list of all morse phrases
 MORSE_CODES = [
 MORSE_SHELL,
 MORSE_HALLS,
@@ -203,6 +241,7 @@ MORSE_BEATS
 ]
 
 #   maze variables
+#       which maze it is
 MAZES_1 = "1"
 MAZES_2 = "2"
 MAZES_3 = "3"
@@ -213,6 +252,7 @@ MAZES_7 = "7"
 MAZES_8 = "8"
 MAZES_9 = "9"
 
+#       list of maze choices
 MAZES_CHOICES = [
 MAZES_1,
 MAZES_2,
@@ -226,6 +266,7 @@ MAZES_9
 ]
 
 #   passwords variables
+#       first letter of password
 PASSWORDS_A = "1"
 PASSWORDS_B = "2"
 PASSWORDS_C = "3"
@@ -242,13 +283,23 @@ PASSWORDS_S = "c"
 PASSWORDS_T = "d"
 PASSWORDS_W = "e"
 
+#       which number password it is
 PASSWORDS_1 = "1"
 PASSWORDS_2 = "2"
 PASSWORDS_3 = "3"
-PASSWORDS_4 = "4"
 PASSWORDS_5 = "5"
 PASSWORDS_6 = "6"
 
+#       list of password numbers
+PASSWORDS_IDS = [
+PASSWORDS_1,
+PASSWORDS_2,
+PASSWORDS_3,
+PASSWORDS_5,
+PASSWORDS_6
+]
+
+#       lists of first letters by number of passwords that have that first letter
 PASSWORDS_LEN1 = [
 PASSWORDS_B,
 PASSWORDS_C,
@@ -279,10 +330,44 @@ PASSWORDS_T,
 PASSWORDS_W
 ]
 
+#   needy variables
+NEEDY_VENT = "1"
+NEEDY_CAPACITOR = "2"
+
+NEEDY_MODULES = [
+NEEDY_VENT,
+NEEDY_CAPACITOR
+]
 
 
-def generateCode():
-    pass
+
+def generateCode(difficulty = 0):
+    code = generatePrefix()
+
+    return code
+
+#prefix
+def generatePrefix():
+    serialNumber = ""
+    indicator = ""
+    batteries = ""
+
+    serialNumber = choice(SERIAL_NUMBERS)
+
+    indicatorProbability = choice(range(11))
+    if indicatorProbability == 0:
+        indicator = NO_INDICATOR
+    elif indicatorProbability == 1:
+        indicator = CAR_INDICATOR
+    elif indicatorProbability == 2:
+        indicator = FRK_INDICATOR
+    else:
+        indicator = OTHER_INDICATOR
+    
+    batteries = BATTERIES_LIST[choice(range(3))]
+
+    return serialNumber + indicator + batteries
+
 
 #wires
 def createWires():
@@ -338,6 +423,54 @@ def mazeSolution(segment):
 #password
 def createPasswords():
     passwordsSegment = PASSWORDS_START
+    password = choice(range(34))
+    passwordFirstLetter = ""
+    passwordNumber = ""
+    if password < 2:
+        passwordFirstLetter = PASSWORDS_A
+    elif password < 3:
+        passwordFirstLetter = PASSWORDS_B
+    elif password < 4:
+        passwordFirstLetter = PASSWORDS_C
+    elif password < 5:
+        passwordFirstLetter = PASSWORDS_E
+    elif password < 7:
+        passwordFirstLetter = PASSWORDS_F
+    elif password < 8:
+        passwordFirstLetter = PASSWORDS_G
+    elif password < 9:
+        passwordFirstLetter = PASSWORDS_H
+    elif password < 11:
+        passwordFirstLetter = PASSWORDS_L
+    elif password < 12:
+        passwordFirstLetter = PASSWORDS_N
+    elif password < 13:
+        passwordFirstLetter = PASSWORDS_O
+    elif password < 16:
+        passwordFirstLetter = PASSWORDS_P
+    elif password < 17:
+        passwordFirstLetter = PASSWORDS_R
+    elif password < 22:
+        passwordFirstLetter = PASSWORDS_S
+    elif password < 28:
+        passwordFirstLetter = PASSWORDS_T
+    elif password < 34:
+        passwordFirstLetter = PASSWORDS_W
+    
+    if passwordFirstLetter in PASSWORDS_LEN1:
+        passwordNumber = choice(PASSWORDS_IDS[:1])
+    if passwordFirstLetter in PASSWORDS_LEN2:
+        passwordNumber = choice(PASSWORDS_IDS[:2])
+    if passwordFirstLetter in PASSWORDS_LEN3:
+        passwordNumber = choice(PASSWORDS_IDS[:3])
+    if passwordFirstLetter in PASSWORDS_LEN5:
+        passwordNumber = choice(PASSWORDS_IDS[:4])
+    if passwordFirstLetter in PASSWORDS_LEN6:
+        passwordNumber = choice(PASSWORDS_IDS)
+    
+    return passwordsSegment + passwordFirstLetter + passwordNumber
+
+        
 
 
 def passwordsSolution(segment):
@@ -345,7 +478,9 @@ def passwordsSolution(segment):
 
 #needy
 def createNeedy():
-    pass
+    needySegment = NEEDY_START
+    needyModule = choice(NEEDY_MODULES)
+    return needySegment + needyModule
 
 def needySolution(segment):
     pass
