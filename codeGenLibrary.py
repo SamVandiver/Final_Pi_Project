@@ -344,7 +344,29 @@ NEEDY_CAPACITOR
 def generateCode(difficulty = 0):
     code = generatePrefix()
 
+    if difficulty >= 0:
+        code += createWires()
+    if difficulty >= 1:
+        code += createButton()
+    if difficulty >= 2:
+        code += createSimon()
+    if difficulty >= 3:
+        code += createMemory()
+    if difficulty >= 4:
+        code += createMaze()
+    if difficulty >= 5:
+        code += createPasswords()
+    if difficulty >= 6:
+        code += createNeedy()
+    
     return code
+
+def splitCode(code):
+    segments = code.split(".")
+    for segment in segments:
+        if segment.startswith(WIRE_START):
+            wiresSoution = wiresSolution(segment)
+    
 
 #prefix
 def generatePrefix():
