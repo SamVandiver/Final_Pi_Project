@@ -340,33 +340,31 @@ NEEDY_CAPACITOR
 ]
 
 
-
 def generateCode(difficulty = 0):
     code = generatePrefix()
 
-    if difficulty >= 0:
-        code += createWires()
-    if difficulty >= 1:
-        code += createButton()
-    if difficulty >= 2:
-        code += createSimon()
-    if difficulty >= 3:
-        code += createMemory()
+    if difficulty <= 3:
+        for _ in range(difficulty):
+            run = choice(easyModules)
+            code += run
     if difficulty >= 4:
-        code += createMaze()
-    if difficulty >= 5:
-        code += createPasswords()
-    if difficulty >= 6:
-        code += createNeedy()
+        for _ in range(difficulty-3):
+            run = choice(hardModules)
+            print(run)
     
     return code
 
 def splitCode(code):
     segments = code.split(".")
     for segment in segments:
-        if segment.startswith(WIRE_START):
-            wiresSoution = wiresSolution(segment)
-    
+        if segment.startswith(WIRE_START): wiresSoution = wiresSolution(segment)
+        elif segment.startswith(BUTTON_START): buttonSoution = buttonSolution(segment)
+        elif segment.startswith(SIMON_START): pass
+        elif segment.startswith(MEMORY_START): memorySolution = memorySolution(segment)
+        elif segment.startswith(MORSE_START): morseSolution = morseSolution(segment)
+        elif segment.startswith(MAZES_START): mazeSolution = mazeSolution(segment)
+        elif segment.startswith(PASSWORDS_START): passwordsSolution = passwordsSolution(segment)
+        elif segment.startswith(NEEDY_START): needySolution = needySolution(segment)
 
 #prefix
 def generatePrefix():
@@ -399,6 +397,9 @@ def createWires():
     for wire in range(numberOfWires):
         wireSegment = wireSegment + choice(wireColors)
     return wireSegment
+
+def wiresWalkthrough(segment):
+    print(segment)
 
 def wiresSolution(segment):
     pass
@@ -506,3 +507,6 @@ def createNeedy():
 
 def needySolution(segment):
     pass
+
+easyModules=[createWires(), createButton(), createSimon()]
+hardModules=[createMemory(), createMaze(), createPasswords()]
