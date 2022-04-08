@@ -39,15 +39,20 @@ running = True
 os.chdir("Final Pi Project/Final_Pi_Project")
 
 #   images
+#       button backgrounds
 buttonBlue = pygame.image.load("buttonBlue.png")
-# buttonWhite = pygame.image.load("buttonWhite.png")
-# buttonYellow = pygame.image.load("buttonYellow.png")
-# buttonRed = pygame.image.load("buttonRed.png")
+buttonWhite = pygame.image.load("buttonWhite.png")
+buttonYellow = pygame.image.load("buttonYellow.png")
+buttonRed = pygame.image.load("buttonRed.png")
+
+#       button text
+abortWhite = pygame.image.load("abortWhite.png")
 
 
 #   module functions
-def button(buttonBackground, buttonText):
-    screen.blit(buttonBackground, (300, 400))
+def button(buttonBackground, buttonText, x, y):
+    screen.blit(buttonBackground, (x, y))
+    screen.blit(buttonText, (x, y))
 
 while running:
 
@@ -58,5 +63,5 @@ while running:
 
 
     screen.fill((100,100,100))
-    button(buttonBlue, 0)
+    button(buttonBlue, abortWhite, 450, 200)
     pygame.display.update()
