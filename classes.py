@@ -1,5 +1,10 @@
 import pygame
 #   panel class and its children
+
+screen = pygame.display.set_mode((0, 0))
+PIHEIGHT = 600
+PIWIDTH = 800
+
 class Panel(pygame.sprite.Sprite):
     def __init__(self, width, height, x, y, fillColor):
         super().__init__()
@@ -18,6 +23,19 @@ class Panel(pygame.sprite.Sprite):
     def draw(self):
         screen.blit(self.surface, ((self.x, self.y)))
 
+class DisplaySetup:
+    def __init__(self) -> None:
+        pass
+
+    def startScreen(self):
+        screen.fill((100, 100, 100))
+
+    def playingScreen():
+        screen.fill((100, 100, 100))
+        sidePanel = Panel(250, PIHEIGHT, 0, 0, (60, 60, 60))
+        strikePanel = Panel(PIWIDTH, 150, 250, 0, (20,20,20))
+        return sidePanel, strikePanel
+
 class Strikes(Panel):
     def __init__(self, strikes):
         super().__init__()
@@ -32,19 +50,19 @@ class Strikes(Panel):
 #   module class and its children
 class Module:
 
-    def __init__(self):
-        pass
+    def __init__(self, id):
+        self.id = id
 
     def change(self):
         pass
 
     def fail(self):
-        pass
+        raise NotImplementedError
 
     def draw(self):
         raise NotImplementedError
 
 class Button(Module):
-    def __init__(self, segment):
-        super().__init__()
+    def __init__(self, id, segment):
+        super().__init__(id)
         self.segment = segment
