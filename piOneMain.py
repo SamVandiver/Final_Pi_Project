@@ -35,7 +35,9 @@ screen = pygame.display.set_mode((PIHEIGHT, PIWIDTH))
 #   window title
 pygame.display.set_caption("Keep Talking")
 
-running = True
+starting = True
+playing = False
+gameover = False
 
 #   change current working directory to the folder this file is in
 os.chdir("Final Pi Project/Final_Pi_Project/assets/buttoncolors")
@@ -51,6 +53,12 @@ os.chdir("../buttonwords")
 #       button text
 abortWhite = pygame.image.load("abortWhite.png")
 
+os.chdir("../indicator")
+
+indicator = pygame.image.load("indicatorbase.png")
+def drawindicator(image, x, y):
+    screen.blit(image, (x, y))
+
 
 #   module functions
 def button(buttonBackground, buttonText, x, y):
@@ -59,16 +67,25 @@ def button(buttonBackground, buttonText, x, y):
 
 
 #   create all the objects
-sidePanel = classes.Panel(250, PIHEIGHT, 0, 0, (60, 60, 60))
-strikePanel = classes.Panel(PIWIDTH, 200, 250, 0, (20,20,20))
 
+while starting:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            starting = False
+            playing = True
+    
+    screen.fill((100,100,100))
+    button(buttonBlue, abortWhite, 450, 200)
+    pygame.display.update()
 
-while running:
+sidePanel, strikePanel = classes.DisplaySetup.playingScreen()
+
+while playing:
 
 #      events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            playing = False
 
 
     screen.fill((100,100,100))
