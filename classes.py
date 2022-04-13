@@ -50,8 +50,9 @@ class Strikes(Panel):
 #   module class and its children
 class Module:
 
-    def __init__(self, id):
+    def __init__(self, id, segment):
         self.id = id
+        self.segment = segment
 
     def change(self):
         pass
@@ -64,5 +65,4 @@ class Module:
 
 class Button(Module):
     def __init__(self, id, segment):
-        super().__init__(id)
-        self.segment = segment
+        super().__init__(id, segment)
