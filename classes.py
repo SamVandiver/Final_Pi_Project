@@ -1,9 +1,12 @@
 import pygame
-#   panel class and its children
 
+#   adds a bunch of stuff so vs code doesnt get pissed at me
 screen = pygame.display.set_mode((0, 0))
 PIHEIGHT = 600
 PIWIDTH = 800
+
+
+#   panel class and its children (obsolete)
 
 class Panel(pygame.sprite.Sprite):
     def __init__(self, width, height, x, y, fillColor):
@@ -23,6 +26,7 @@ class Panel(pygame.sprite.Sprite):
     def draw(self):
         screen.blit(self.surface, ((self.x, self.y)))
 
+#   a class (which probably would be better as a bunch of functions) which sets up all the parts of the window which don't need to change every frame
 class DisplaySetup:
     def __init__(self) -> None:
         pass

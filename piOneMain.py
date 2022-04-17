@@ -40,7 +40,7 @@ playing = False
 gameover = False
 
 #   change current working directory to the folder this file is in
-os.chdir("Final Pi Project/Final_Pi_Project/assets/buttoncolors")
+os.chdir("assets/buttoncolors")
 
 #   images
 #       button backgrounds
@@ -68,6 +68,11 @@ def button(buttonBackground, buttonText, x, y):
 
 #   create all the objects
 
+#   (objects go here)
+
+
+#   starting game loop, handles the main menu
+#   when the start button is pressed, switches to the main game loop
 while starting:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -78,18 +83,25 @@ while starting:
     button(buttonBlue, abortWhite, 450, 200)
     pygame.display.update()
 
+#   Classes.DisplaySetup.playingScreen() as of now returns two objects (which at this point are obsolete)
+#   proly need to make this function set the background to the base image
 sidePanel, strikePanel = classes.DisplaySetup.playingScreen()
 
+
+#   main game loop, handles the main game and terinates when the player wins or loses by having 3 strikes
 while playing:
 
 #      events
     for event in pygame.event.get():
+        #   terminates the gameloop if the x button is pressed
         if event.type == pygame.QUIT:
             playing = False
 
-
+    #   makes the background gray
     screen.fill((100,100,100))
+    #   adds a blue abort button
     button(buttonBlue, abortWhite, 450, 200)
+    #   draws the two obsolete things from classes.DisplaySetup.playingScreen()
     sidePanel.draw()
     strikePanel.draw()
     pygame.display.update()
