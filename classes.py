@@ -1,4 +1,5 @@
 import pygame
+import os
 
 #   adds a bunch of stuff so vs code doesnt get pissed at me
 screen = pygame.display.set_mode((0, 0))
@@ -30,6 +31,7 @@ class Panel(pygame.sprite.Sprite):
 class DisplaySetup:
     def __init__(self) -> None:
         pass
+
 
     def startScreen(self):
         screen.fill((100, 100, 100))
@@ -70,3 +72,19 @@ class Module:
 class Button(Module):
     def __init__(self, id, segment):
         super().__init__(id, segment)
+
+#   functions that dont belong in codeGenLibrary
+def loadImages():
+    global startScreen
+    global mainScreenBase
+    global timerNoStrikes
+    global timerOneStrike
+    global timerTwoStrikes
+
+    print(os.getcwd())
+
+    #   start loading stuff
+    os.chdir("assets/screens")
+    print(os.getcwd())
+    startScreen = pygame.image.load("start screen.png")
+    mainScreenBase = pygame.image.load("gui draft1.png")
