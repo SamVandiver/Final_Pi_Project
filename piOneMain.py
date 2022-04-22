@@ -35,36 +35,12 @@ screen = pygame.display.set_mode((PIHEIGHT, PIWIDTH))
 #   window title
 pygame.display.set_caption("Keep Talking")
 
-starting = True
-playing = False
-gameover = False
+gamestate = "starting"
 
 #   change current working directory to the folder this file is in
-os.chdir("assets/buttoncolors")
 
-#   images
-#       button backgrounds
-buttonBlue = pygame.image.load("buttonBlue.png")
-buttonWhite = pygame.image.load("buttonWhite.png")
-buttonYellow = pygame.image.load("buttonYellow.png")
-buttonRed = pygame.image.load("buttonRed.png")
-
-os.chdir("../buttonwords")
-#       button text
-abortWhite = pygame.image.load("abortWhite.png")
-
-os.chdir("../indicator")
-
-indicator = pygame.image.load("indicatorbase.png")
-def drawindicator(image, x, y):
-    screen.blit(image, (x, y))
-
-
-#   module functions
-def button(buttonBackground, buttonText, x, y):
-    screen.blit(buttonBackground, (x, y))
-    screen.blit(buttonText, (x, y))
-
+#   load the stuff
+classes.loadImages()
 
 #   create all the objects
 
@@ -73,35 +49,25 @@ def button(buttonBackground, buttonText, x, y):
 
 #   starting game loop, handles the main menu
 #   when the start button is pressed, switches to the main game loop
-while starting:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            starting = False
-            playing = True
-    
-    screen.fill((100,100,100))
-    button(buttonBlue, abortWhite, 450, 200)
-    pygame.display.update()
+screen.blit(classes.startScreen, (0,0))
+running = True
+while running:
+    #   get mouse position
+    mouse = pygame.mouse.get_pos()
+    if gamestate == "starting":
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if 250 < mouse[0] < 550 and 375 < mouse[1] < 525:
+                    gamestate = "playing"
+                    screen.blit(classes.mainScreenBase, (0,0))
 
-#   Classes.DisplaySetup.playingScreen() as of now returns two objects (which at this point are obsolete)
-#   proly need to make this function set the background to the base image
-sidePanel, strikePanel = classes.DisplaySetup.playingScreen()
-
-
-#   main game loop, handles the main game and terinates when the player wins or loses by having 3 strikes
-while playing:
-
-#      events
-    for event in pygame.event.get():
-        #   terminates the gameloop if the x button is pressed
-        if event.type == pygame.QUIT:
-            playing = False
-
-    #   makes the background gray
-    screen.fill((100,100,100))
-    #   adds a blue abort button
-    button(buttonBlue, abortWhite, 450, 200)
-    #   draws the two obsolete things from classes.DisplaySetup.playingScreen()
-    sidePanel.draw()
-    strikePanel.draw()
+    elif gamestate == "playing":
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.QUIT:
+                running =  False
+                
     pygame.display.update()
