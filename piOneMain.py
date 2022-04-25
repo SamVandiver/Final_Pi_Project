@@ -35,7 +35,10 @@ screen = pygame.display.set_mode((PIHEIGHT, PIWIDTH))
 #   window title
 pygame.display.set_caption("Keep Talking")
 
+#   variables
 gamestate = "starting"
+strikes = 0
+timerLocation = (250,50)
 
 #   change current working directory to the folder this file is in
 
@@ -54,6 +57,8 @@ running = True
 while running:
     #   get mouse position
     mouse = pygame.mouse.get_pos()
+
+    #   start screen
     if gamestate == "starting":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -63,11 +68,16 @@ while running:
                     gamestate = "playing"
                     screen.blit(classes.mainScreenBase, (0,0))
 
+
+    #   main game
     elif gamestate == "playing":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.QUIT:
-                running =  False
+        
+        if strikes == 0:
+            screen.blit(classes.timerNoStrikes, timerLocation)
+
+        
                 
     pygame.display.update()

@@ -75,16 +75,23 @@ class Button(Module):
 
 #   functions that dont belong in codeGenLibrary
 def loadImages():
-    global startScreen
-    global mainScreenBase
-    global timerNoStrikes
-    global timerOneStrike
-    global timerTwoStrikes
 
-    print(os.getcwd())
+    #   get the font
+    global font1
+    font1 = pygame.font.SysFont
 
     #   start loading stuff
     os.chdir("assets/screens")
-    print(os.getcwd())
+    global startScreen
+    global mainScreenBase
     startScreen = pygame.image.load("start screen.png")
     mainScreenBase = pygame.image.load("gui draft1.png")
+
+    #   gets everything from indicators
+    os.chdir("../indicator")
+    global timerNoStrikes
+    global timerOneStrike
+    global timerTwoStrikes
+    timerNoStrikes = pygame.image.load("timer0.png")
+    timerOneStrike = pygame.image.load("timer1.png")
+    timerTwoStrikes = pygame.image.load("timer2.png")
