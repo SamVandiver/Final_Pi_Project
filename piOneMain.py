@@ -60,18 +60,26 @@ while running:
 
     #   start screen
     if gamestate == "starting":
+        #   checks the pygame event stack
         for event in pygame.event.get():
+            #   closes the game if the x button is presssed
             if event.type == pygame.QUIT:
                 running = False
+            #   checks when the mouse is pressed
             if event.type == pygame.MOUSEBUTTONDOWN:
+                #   if the mouse is clicked while over the begin button then change gamestate to playing and setup the main window
                 if 250 < mouse[0] < 550 and 375 < mouse[1] < 525:
                     gamestate = "playing"
                     screen.blit(classes.mainScreenBase, (0,0))
+                    screen.blit(classes.buttonBlue, (200, 200))
+                    screen.blit(classes.passwordsBase, (200, 400))
 
 
     #   main game
     elif gamestate == "playing":
+        #   checks the pygame event stack
         for event in pygame.event.get():
+            #   closes the game if the x button is presssed
             if event.type == pygame.QUIT:
                 running = False
         
