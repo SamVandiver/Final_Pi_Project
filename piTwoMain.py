@@ -14,7 +14,7 @@ TCP_SOCKET.bind(SERVER_ADDRESS)
  
 # Listen on port 81
 TCP_SOCKET.listen(1)
- 
+
 while True:
     print("Waiting for connection")
     connection, client = TCP_SOCKET.accept()
@@ -33,6 +33,7 @@ while True:
     finally:
         connection.close()
 '''
+
 code = CODE.generateCode(4)
 CODE.splitCode(code)
 print(code)
