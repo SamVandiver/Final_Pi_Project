@@ -82,9 +82,27 @@ while running:
             #   closes the game if the x button is presssed
             if event.type == pygame.QUIT:
                 running = False
-        
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                #   if the mouse is clicked while over the
+                if x1 < mouse[0] < x2 and y1 < mouse[1] < y2:
+                    gamestate = "playing"
+                    screen.blit(classes.mainScreenBase, (0,0))
+                    screen.blit(classes.'something', (x, y))
+                    screen.blit(classes.'something', (x, y))
+                if True:
+                    pass
+                if True:
+                    pass
+                if True:
+                    pass
+                if True:
+                    pass
+                if True:
+                    pass
         if strikes == 0:
             screen.blit(classes.timerNoStrikes, timerLocation)
+
 
         
                 
