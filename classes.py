@@ -95,3 +95,23 @@ def loadImages():
     timerNoStrikes = pygame.image.load("timer0.png")
     timerOneStrike = pygame.image.load("timer1.png")
     timerTwoStrikes = pygame.image.load("timer2.png")
+
+    #   gets everything from buttoncolors
+    os.chdir("../buttoncolors")
+    global buttonBlue
+    global buttonWhite
+    global buttonYellow
+    global buttonRed
+    buttonBlue = pygame.image.load("buttonBlue.png")
+    buttonWhite = pygame.image.load("buttonWhite.png")
+    buttonYellow = pygame.image.load("buttonYellow.png")
+    buttonRed = pygame.image.load("buttonRed.png")
+
+    #   gets everything from buttonwords
+    os.chdir("../buttonwords")
+
+    #   gets everything from modules/passwords
+    os.chdir("../modules/passwords")
+    global passwordsBase
+    passwordsBase = pygame.image.load("passwords.png")
+    
