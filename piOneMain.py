@@ -26,7 +26,6 @@ finally:
 PIHEIGHT = 800
 PIWIDTH = 600
 
-
 #   start pygame
 pygame.init()
  
@@ -47,7 +46,6 @@ timerLocation = (250,50)
 classes.loadImages()
 
 #   create all the objects
-
 #   (objects go here)
 
 
@@ -186,6 +184,6 @@ while running:
         elif strikes == 2:
             screen.blit(classes.timerTwoStrikes, timerLocation)
 
-        
-                
+
+
     pygame.display.update()

@@ -402,7 +402,7 @@ def wiresWalkthrough(segment):
     print(segment)
 
 def wiresSolution(segment):
-    pass
+    
 
 #button
 def createButton():
