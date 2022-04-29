@@ -341,8 +341,8 @@ def generateCode(difficulty = 0):
             run = choice(hardModules)
             print(run)
             code += run
-    # difficulty <= 3 returns: '[1-4 + 1-4 + 0-3] + random { [.a + ('1'-'5')*(3-5)] + [.b + 1-4 + 1-4] + [.c + ('1'-'4')*6] }'
-    # difficulty >= 4 returns: '[1-4 + 1-4 + 0-3] + random { [.e + (0-9+a-f)] + ['.f' + '1'-'9'] + [.g + (0-9+a-e) + 1-6] }'
+    # difficulty <= 3 returns: '[1-4 + 1-4 + 0-3] + random { [.a + ('1'-'5')*(3-5)] + [.b + 1-4 + 1-4] + [.c + (1-4)*6] }'
+    # difficulty >= 4 returns: '[1-4 + 1-4 + 0-3] + random { [.e + (0-9+a-f)] + [.f + 1-9] + [.g + (0-9+a-e) + 1-6] }'
     return code
 
 def splitCode(code:str):
