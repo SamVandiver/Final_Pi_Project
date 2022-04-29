@@ -5,7 +5,7 @@ import random
 import socket
 import sys
 import os
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import codeGenLibrary as CODE
 import classes
 

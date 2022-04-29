@@ -1,7 +1,6 @@
 import pygame
 import os
 import codeGenLibrary as CODE
-import piOneMain as pi
 
 #   adds a bunch of stuff so vs code doesnt get pissed at me
 screen = pygame.display.set_mode((0, 0))
@@ -211,8 +210,8 @@ def encrypt(message):
 def WIRES():
     turn=int(input(f'{CODE.W}\n')) # Just for testing, normally the player would have to use the manual to get the right wire
     turn-=1 # Because indexing starts at 0
-    if CODE.W[turn] == False: pi.strike()
-    else:
-        print('Good job.')
-        CODE.W.pop(turn)
-    print('Congratulations you have succesfully unplugged the correct wires.')
+    # if CODE.W[turn] == False: pi.strike()
+    # else:
+    #     print('Good job.')
+    #     CODE.W.pop(turn)
+    # print('Congratulations you have succesfully unplugged the correct wires.')
