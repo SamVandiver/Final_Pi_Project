@@ -171,14 +171,14 @@ BATTERIES_3
 ]
 
 #   segment start variables
-WIRE_START = ".a"
-BUTTON_START = ".b"
-SIMON_START = ".c"
-MEMORY_START = ".d"
-MORSE_START = ".e"
-MAZES_START = ".f"
-PASSWORDS_START = ".g"
-NEEDY_START = ".h"
+WIRE_START = "a"
+BUTTON_START = "b"
+SIMON_START = "c"
+MEMORY_START = "d"
+MORSE_START = "e"
+MAZES_START = "f"
+PASSWORDS_START = "g"
+NEEDY_START = "h"
 
 #   wires variables
 #       wire color
@@ -354,17 +354,25 @@ def generateCode(difficulty = 0):
     
     return code
 
-def splitCode(code):
+def splitCode(code:str):
     segments = code.split(".")
+    wireSegment = None
+    buttonSegment = None
+    simonSegment = None
+    morseSegment = None
+    mazeSegment = None
+    passwordSegment = None
+    needySegment = None
     for segment in segments:
-        if segment.startswith(WIRE_START): wiresSoution = wiresSolution(segment)
-        elif segment.startswith(BUTTON_START): buttonSoution = buttonSolution(segment)
-        elif segment.startswith(SIMON_START): pass
-        elif segment.startswith(MEMORY_START): memorySolution = memorySolution(segment)
-        elif segment.startswith(MORSE_START): morseSolution = morseSolution(segment)
-        elif segment.startswith(MAZES_START): mazeSolution = mazeSolution(segment)
-        elif segment.startswith(PASSWORDS_START): passwordsSolution = passwordsSolution(segment)
-        elif segment.startswith(NEEDY_START): needySolution = needySolution(segment)
+        if segment.startswith(WIRE_START): wireSegment = segment[1:]
+        elif segment.startswith(BUTTON_START): buttonSegment = segment[1:]
+        elif segment.startswith(SIMON_START): simonSegment = segment[1:]
+        elif segment.startswith(MORSE_START): morseSegment = segment[1:]
+        elif segment.startswith(MAZES_START): mazeSegment = segment[1:]
+        elif segment.startswith(PASSWORDS_START): passwordSegment = segment[1:]
+        elif segment.startswith(NEEDY_START): needySegment = segment[1:]
+        else: prefix = segment
+    return prefix, wireSegment, buttonSegment, simonSegment, morseSegment, mazeSegment, passwordSegment, needySegment
 
 #prefix
 def generatePrefix():
@@ -391,7 +399,7 @@ def generatePrefix():
 
 #wires
 def createWires():
-    wireSegment = WIRE_START
+    wireSegment = "." + WIRE_START
     numberOfWires = randint(3, 6)
     wireColors = [WIRE_RED, WIRE_BLUE, WIRE_WHITE, WIRE_YELLOW, WIRE_BLACK]
     for wire in range(numberOfWires):
@@ -406,7 +414,7 @@ def wiresSolution(segment):
 
 #button
 def createButton():
-    buttonSegment = BUTTON_START
+    buttonSegment = "." + BUTTON_START
     buttonColor = choice([BUTTON_BLUE, BUTTON_WHITE, BUTTON_YELLOW, BUTTON_RED])
     buttonText = choice([BUTTON_ABORT, BUTTON_DETONATE, BUTTON_HOLD, BUTTON_PRESS])
     return buttonSegment + buttonColor + buttonText
@@ -416,18 +424,18 @@ def buttonSolution(segment):
 
 #simon
 def createSimon():
-    return SIMON_START
+    return "." + SIMON_START
 
 #memory
 def createMemory():
-    return MEMORY_START
+    return "." + MEMORY_START
 
 def memorySolution(segment):
     pass
 
 #morse
 def createMorse():
-    morseSegment = MORSE_START
+    morseSegment = "." + MORSE_START
     morseCode = choice(MORSE_CODES)
     return morseSegment + morseCode
 
@@ -436,7 +444,7 @@ def morseSolution(segment):
 
 #maze
 def createMaze():
-    mazeSegment = MAZES_START
+    mazeSegment = "." + MAZES_START
     mazePick = choice(MAZES_CHOICES)
     return mazeSegment + mazePick
 
@@ -445,7 +453,7 @@ def mazeSolution(segment):
 
 #password
 def createPasswords():
-    passwordsSegment = PASSWORDS_START
+    passwordsSegment = "." + PASSWORDS_START
     password = choice(range(34))
     passwordFirstLetter = ""
     passwordNumber = ""
@@ -501,7 +509,7 @@ def passwordsSolution(segment):
 
 #needy
 def createNeedy():
-    needySegment = NEEDY_START
+    needySegment = "." + NEEDY_START
     needyModule = choice(NEEDY_MODULES)
     return needySegment + needyModule
 
