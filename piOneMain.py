@@ -4,9 +4,9 @@ import pygame
 import random
 import socket
 import sys
-import codeGenLibrary as CODE
 import os
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
+import codeGenLibrary as CODE
 import classes
 
 #debug
@@ -41,7 +41,6 @@ if DEBUG:
 #       pi stuff
 PIHEIGHT = 800
 PIWIDTH = 600
-
 
 #   start pygame
 pygame.init()
@@ -107,7 +106,6 @@ if moduleTable["button"][0]:
         print(buttonLogicVariable)
 
 #   create all the objects
-
 #   (objects go here)
 
 
@@ -170,6 +168,7 @@ while running:
             if event.type == pygame.QUIT:
                 running = False
 
+            #   if the mouse is clicked while over the module
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #   button
                 if (((200 < mouse[0] < 400) and (200 < mouse[0] < 400)) and (moduleTable["button"][0] == True)):
@@ -313,6 +312,6 @@ while running:
 
     clock.tick(60)
 
-        
-                
+
+
     pygame.display.update()

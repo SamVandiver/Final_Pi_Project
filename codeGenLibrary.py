@@ -145,11 +145,10 @@ EVEN_VOWEL = "3"
 EVEN_NO_VOWEL = "4"
 #       list of serial numbers
 SERIAL_NUMBERS = [
-ODD_VOWEL,
-ODD_NO_VOWEL,
-EVEN_VOWEL,
-EVEN_NO_VOWEL
-]
+    ODD_VOWEL,
+    ODD_NO_VOWEL,
+    EVEN_VOWEL,
+    EVEN_NO_VOWEL]
 
 #       indicator
 NO_INDICATOR = "1"
@@ -164,11 +163,10 @@ BATTERIES_2 = "2"
 BATTERIES_3 = "3"
 #       list of numbers of batteries
 BATTERIES_LIST = [
-BATTERIES_0,
-BATTERIES_1,
-BATTERIES_2,
-BATTERIES_3
-]
+    BATTERIES_0,
+    BATTERIES_1,
+    BATTERIES_2,
+    BATTERIES_3]
 
 #   segment start variables
 WIRE_START = "a"
@@ -182,10 +180,10 @@ NEEDY_START = "h"
 
 #   wires variables
 #       wire color
-WIRE_RED  = "1"
-WIRE_BLUE  = "2"
-WIRE_WHITE  = "3"
-WIRE_YELLOW  = "4"
+WIRE_RED = "1"
+WIRE_BLUE = "2"
+WIRE_WHITE = "3"
+WIRE_YELLOW = "4"
 WIRE_BLACK = "5"
 
 #   buttons variables
@@ -222,23 +220,22 @@ MORSE_BEATS = "f"
 
 #       list of all morse phrases
 MORSE_CODES = [
-MORSE_SHELL,
-MORSE_HALLS,
-MORSE_SLICK,
-MORSE_TRICK,
-MORSE_BOXES,
-MORSE_LEAKS,
-MORSE_STROBE,
-MORSE_BISTRO,
-MORSE_FLICK,
-MORSE_BOMBS,
-MORSE_BREAK,
-MORSE_BRICK,
-MORSE_STEAK,
-MORSE_STING,
-MORSE_VECTOR,
-MORSE_BEATS
-]
+    MORSE_SHELL,
+    MORSE_HALLS,
+    MORSE_SLICK,
+    MORSE_TRICK,
+    MORSE_BOXES,
+    MORSE_LEAKS,
+    MORSE_STROBE,
+    MORSE_BISTRO,
+    MORSE_FLICK,
+    MORSE_BOMBS,
+    MORSE_BREAK,
+    MORSE_BRICK,
+    MORSE_STEAK,
+    MORSE_STING,
+    MORSE_VECTOR,
+    MORSE_BEATS]
 
 #   maze variables
 #       which maze it is
@@ -254,16 +251,15 @@ MAZES_9 = "9"
 
 #       list of maze choices
 MAZES_CHOICES = [
-MAZES_1,
-MAZES_2,
-MAZES_3,
-MAZES_4,
-MAZES_5,
-MAZES_6,
-MAZES_7,
-MAZES_8,
-MAZES_9
-]
+    MAZES_1,
+    MAZES_2,
+    MAZES_3,
+    MAZES_4,
+    MAZES_5,
+    MAZES_6,
+    MAZES_7,
+    MAZES_8,
+    MAZES_9]
 
 #   passwords variables
 #       first letter of password
@@ -292,66 +288,61 @@ PASSWORDS_6 = "6"
 
 #       list of password numbers
 PASSWORDS_IDS = [
-PASSWORDS_1,
-PASSWORDS_2,
-PASSWORDS_3,
-PASSWORDS_5,
-PASSWORDS_6
-]
+    PASSWORDS_1,
+    PASSWORDS_2,
+    PASSWORDS_3,
+    PASSWORDS_5,
+    PASSWORDS_6]
 
 #       lists of first letters by number of passwords that have that first letter
 PASSWORDS_LEN1 = [
-PASSWORDS_B,
-PASSWORDS_C,
-PASSWORDS_E,
-PASSWORDS_G,
-PASSWORDS_H,
-PASSWORDS_N,
-PASSWORDS_O,
-PASSWORDS_R
-]
+    PASSWORDS_B,
+    PASSWORDS_C,
+    PASSWORDS_E,
+    PASSWORDS_G,
+    PASSWORDS_H,
+    PASSWORDS_N,
+    PASSWORDS_O,
+    PASSWORDS_R]
 
 PASSWORDS_LEN2 = [
-PASSWORDS_F,
-PASSWORDS_L
-]
+    PASSWORDS_F,
+    PASSWORDS_L]
 
 PASSWORDS_LEN3 = [
-PASSWORDS_A,
-PASSWORDS_P
-]
+    PASSWORDS_A,
+    PASSWORDS_P]
 
 PASSWORDS_LEN5 = [
-PASSWORDS_S
-]
+    PASSWORDS_S]
 
 PASSWORDS_LEN6 = [
-PASSWORDS_T,
-PASSWORDS_W
-]
+    PASSWORDS_T,
+    PASSWORDS_W]
 
 #   needy variables
 NEEDY_VENT = "1"
 NEEDY_CAPACITOR = "2"
 
 NEEDY_MODULES = [
-NEEDY_VENT,
-NEEDY_CAPACITOR
-]
-
+    NEEDY_VENT,
+    NEEDY_CAPACITOR]
 
 def generateCode(difficulty = 0):
+    # equals '{1-4}+{1-4}{0-3}'
     code = generatePrefix()
-
     if difficulty <= 3:
         for _ in range(difficulty):
             run = choice(easyModules)
+            print(run)
             code += run
     if difficulty >= 4:
         for _ in range(difficulty-3):
             run = choice(hardModules)
             print(run)
-    
+            code += run
+    # difficulty <= 3 returns: '[1-4 + 1-4 + 0-3] + random { [.a + ('1'-'5')*(3-5)] + [.b + 1-4 + 1-4] + [.c + ('1'-'4')*6] }'
+    # difficulty >= 4 returns: '[1-4 + 1-4 + 0-3] + random { [.e + (0-9+a-f)] + ['.f' + '1'-'9'] + [.g + (0-9+a-e) + 1-6] }'
     return code
 
 def splitCode(code:str):
@@ -380,18 +371,17 @@ def generatePrefix():
     indicator = ""
     batteries = ""
 
+    # equates to '1'-'4'
     serialNumber = choice(SERIAL_NUMBERS)
 
+    # equates to '1'-'4'
     indicatorProbability = choice(range(11))
-    if indicatorProbability == 0:
-        indicator = NO_INDICATOR
-    elif indicatorProbability == 1:
-        indicator = CAR_INDICATOR
-    elif indicatorProbability == 2:
-        indicator = FRK_INDICATOR
-    else:
-        indicator = OTHER_INDICATOR
-    
+    if indicatorProbability == 0: indicator = NO_INDICATOR
+    elif indicatorProbability == 1: indicator = CAR_INDICATOR
+    elif indicatorProbability == 2: indicator = FRK_INDICATOR
+    else: indicator = OTHER_INDICATOR
+
+    # equates to '0'-'3'
     batteries = BATTERIES_LIST[choice(range(3))]
 
     return serialNumber + indicator + batteries
@@ -403,20 +393,27 @@ def createWires():
     numberOfWires = randint(3, 6)
     wireColors = [WIRE_RED, WIRE_BLUE, WIRE_WHITE, WIRE_YELLOW, WIRE_BLACK]
     for wire in range(numberOfWires):
-        wireSegment = wireSegment + choice(wireColors)
+        wireSegment += choice(wireColors)
+    # returns ['.a' + ('1'-'5')*(3-5)]
     return wireSegment
 
 def wiresWalkthrough(segment):
     print(segment)
 
 def wiresSolution(segment):
-    pass
+    W = []
+    for wire in segment[1:]:
+        if int(wire) % 2 == 0: w = False
+        else: w = True
+        W.append(w)
+    return W
 
 #button
 def createButton():
     buttonSegment = "." + BUTTON_START
     buttonColor = choice([BUTTON_BLUE, BUTTON_WHITE, BUTTON_YELLOW, BUTTON_RED])
     buttonText = choice([BUTTON_ABORT, BUTTON_DETONATE, BUTTON_HOLD, BUTTON_PRESS])
+    # returns ['.b' + '1'-'4' + '1'-'4']
     return buttonSegment + buttonColor + buttonText
 
 def buttonSolution(segment):
@@ -437,6 +434,7 @@ def memorySolution(segment):
 def createMorse():
     morseSegment = "." + MORSE_START
     morseCode = choice(MORSE_CODES)
+    # returns ['.e' + '0'-'9'+'a'-'f']
     return morseSegment + morseCode
 
 def morseSolution(segment):
@@ -446,6 +444,7 @@ def morseSolution(segment):
 def createMaze():
     mazeSegment = "." + MAZES_START
     mazePick = choice(MAZES_CHOICES)
+    # returns ['.f' + '1'-'9']
     return mazeSegment + mazePick
 
 def mazeSolution(segment):
@@ -498,11 +497,9 @@ def createPasswords():
         passwordNumber = choice(PASSWORDS_IDS[:4])
     if passwordFirstLetter in PASSWORDS_LEN6:
         passwordNumber = choice(PASSWORDS_IDS)
-    
+
+    # returns ['.g' + ('0'-'9'+'a'-'e') + '1'-'6']
     return passwordsSegment + passwordFirstLetter + passwordNumber
-
-        
-
 
 def passwordsSolution(segment):
     pass
@@ -511,6 +508,7 @@ def passwordsSolution(segment):
 def createNeedy():
     needySegment = "." + NEEDY_START
     needyModule = choice(NEEDY_MODULES)
+    # returns ['.h' + '1'-'2']
     return needySegment + needyModule
 
 def needySolution(segment):
