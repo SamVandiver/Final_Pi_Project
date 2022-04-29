@@ -1,5 +1,7 @@
 import pygame
 import os
+import codeGenLibrary as CODE
+import piOneMain as pi
 
 #   adds a bunch of stuff so vs code doesnt get pissed at me
 screen = pygame.display.set_mode((0, 0))
@@ -115,4 +117,55 @@ def loadImages():
     os.chdir("../modules/passwords")
     global passwordsBase
     passwordsBase = pygame.image.load("passwords.png")
-    
+
+
+# morse code dictionary
+MC={'A':'.-',      'B':'-...',
+    'C':'-.-.',    'D':'-..',
+    'E':'.',       'F':'..-.',
+    'G':'--.',     'H':'....',
+    'I':'..',      'J':'.---',
+    'K':'-.-',     'L':'.-..',
+    'M':'--',      'N':'-.',
+    'O':'---',     'P':'.--.',
+    'Q':'--.-',    'R':'.-.',
+    'S':'...',     'T':'-',
+    'U':'..-',     'V':'...-',
+    'W':'.--',     'X':'-..-',
+    'Y':'-.--',    'Z':'--..',
+    '1':'.----',   '2':'..---',
+    '3':'...--',   '4':'....-',
+    '5':'.....',   '6':'-....',
+    '7':'--...',   '8':'---..',
+    '9':'----.',   '0':'-----',
+    ', ':'--..--', '.':'.-.-.-',
+    '?':'..--..',  '/':'-..-.',
+    '-':'-....-',  '(':'-.--.',
+    ')':'-.--.-'}
+
+def SIMON():
+    code = CODE.simonSegment
+    global message
+    message = input('Input code { }...')
+    guess = encrypt(message)
+    if guess != code: pi.strike()
+    else: print('Good job.')
+
+# Function to encrypt the string according to the morse code chart
+def encrypt(message):
+    C = ''
+    for character in message:
+        # Looks up the dictionary and adds the correspponding morse code along with a space to separate morse codes for different characters
+        if character != ' ': C += MC[character] + ' '
+        # 1 space indicates different characters and 2 indicates different words
+        else: C += ' '
+    return C
+
+def WIRES():
+    turn=int(input(f'{CODE.W}\n')) # Just for testing, normally the player would have to use the manual to get the right wire
+    turn-=1 # Because indexing starts at 0
+    if CODE.W[turn] == False: pi.strike()
+    else:
+        print('Good job.')
+        CODE.W.pop(turn)
+    print('Congratulations you have succesfully unplugged the correct wires.')
