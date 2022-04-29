@@ -1,5 +1,6 @@
 import pygame
 import os
+import codeGenLibrary as CODE
 
 #   adds a bunch of stuff so vs code doesnt get pissed at me
 screen = pygame.display.set_mode((0, 0))
@@ -75,44 +76,91 @@ class Button(Module):
 
 
 #   functions that dont belong in codeGenLibrary
-def loadImages():
+def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegment:str, passwordsSegment:str, needySegment:str):
 
-    #   get the font
-    global font1
-    font1 = pygame.font.SysFont
+    #   get the fonts
+    global timerFont
+    timerFont = pygame.font.SysFont("Arial", 30)
 
     #   start loading stuff
     os.chdir("assets/screens")
     global startScreen
     global mainScreenBase
+    global winScreen
+    global loseScreen
     startScreen = pygame.image.load("start screen.png")
     mainScreenBase = pygame.image.load("gui draft1.png")
+    winScreen = pygame.image.load("victoryroyale.png")
+    loseScreen = pygame.image.load("gameover.png")
 
     #   gets everything from indicators
     os.chdir("../indicator")
     global timerNoStrikes
     global timerOneStrike
     global timerTwoStrikes
+    global strikeList
     timerNoStrikes = pygame.image.load("timer0.png")
     timerOneStrike = pygame.image.load("timer1.png")
     timerTwoStrikes = pygame.image.load("timer2.png")
+    strikeList = [timerNoStrikes, timerOneStrike, timerTwoStrikes, timerTwoStrikes]
 
     #   gets everything from buttoncolors
     os.chdir("../buttoncolors")
-    global buttonBlue
-    global buttonWhite
-    global buttonYellow
-    global buttonRed
-    buttonBlue = pygame.image.load("buttonBlue.png")
-    buttonWhite = pygame.image.load("buttonWhite.png")
-    buttonYellow = pygame.image.load("buttonYellow.png")
-    buttonRed = pygame.image.load("buttonRed.png")
+    global buttonBase
+    if buttonSegment[:1] == CODE.BUTTON_BLUE:
+        buttonBase = pygame.image.load("buttonBlue.png")
+    elif buttonSegment[:1] == CODE.BUTTON_YELLOW:
+        buttonBase = pygame.image.load("buttonYellow.png")
+    elif buttonSegment[:1] == CODE.BUTTON_WHITE:
+        buttonBase = pygame.image.load("buttonWhite.png")
+    elif buttonSegment[:1] == CODE.BUTTON_RED:
+        buttonBase = pygame.image.load("buttonRed.png")
 
     #   gets everything from buttonwords
     os.chdir("../buttonwords")
+    global buttonWord
+    wordForButton = ""
+    #   determines what word goes on the button
+    if buttonSegment[1:2] == CODE.BUTTON_ABORT:
+        wordForButton += "abort"
+    elif buttonSegment[1:2] == CODE.BUTTON_DETONATE:
+        wordForButton += "detonate"
+    elif buttonSegment[1:2] == CODE.BUTTON_PRESS:
+        wordForButton += "press"
+    elif buttonSegment[1:2] == CODE.BUTTON_HOLD:
+        wordForButton += "hold"
+    #   determines color of word
+    if ((buttonSegment[:1] == CODE.BUTTON_BLUE) or (buttonSegment[:1] == CODE.BUTTON_RED)):
+        wordForButton += "White"
+    else:
+        wordForButton += "Black"
+    #   adds .png to the wordForButton
+    wordForButton += ".png"
+    buttonWord = pygame.image.load(wordForButton)
 
     #   gets everything from modules/passwords
     os.chdir("../modules/passwords")
     global passwordsBase
     passwordsBase = pygame.image.load("passwords.png")
-    
+
+    #   gets everything from modules/morse
+    os.chdir("../morse")
+    global morseBase
+    morseBase = pygame.image.load("morse.png")
+
+    #   gets everything from modules/simon
+    os.chdir("../simon")
+    global simonBase
+    simonBase = pygame.image.load("simon.png")
+
+#   function for checking ifthe game is over
+def gameEndCheck(strikes, moduleTable):
+    win = True
+    if strikes >= 3:
+        return "lose"
+    else:
+        for module in moduleTable:
+            if moduleTable[module][0] == True:
+                win = False
+        if win:
+            return "win"
