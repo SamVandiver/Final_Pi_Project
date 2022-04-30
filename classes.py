@@ -189,7 +189,7 @@ MC={'A':'.-',      'B':'-...',
     '-':'-....-',  '(':'-.--.',
     ')':'-.--.-'}
 
-def SIMON():
+def SIMON(strikes):
     code = CODE.simonSegment
     global message
     message = input('Input code { }...')
@@ -208,8 +208,8 @@ def encrypt(message):
     return C
 
 def WIRES():
-    turn=int(input(f'{CODE.W}\n')) # Just for testing, normally the player would have to use the manual to get the right wire
-    turn-=1 # Because indexing starts at 0
+    turn = int(input(f'{CODE.W}\n')) # Just for testing, normally the player would have to use the manual to get the right wire
+    turn -= 1 # Because indexing starts at 0
     # if CODE.W[turn] == False: pi.strike()
     # else:
     #     print('Good job.')
