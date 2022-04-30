@@ -194,8 +194,8 @@ def SIMON():
     global message
     message = input('Input code { }...')
     guess = encrypt(message)
-    if guess != code: pi.strike()
-    else: print('Good job.')
+    # if guess != code: pi.strike()
+    # else: print('Good job.')
 
 # Function to encrypt the string according to the morse code chart
 def encrypt(message):
