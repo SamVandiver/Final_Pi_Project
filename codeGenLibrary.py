@@ -400,13 +400,56 @@ def createWires():
 def wiresWalkthrough(segment):
     print(segment)
 
-def wiresSolution(segment):
-    W = []
-    for wire in segment[1:]:
-        if int(wire) % 2 == 0: w = False
-        else: w = True
-        W.append(w)
-    return W
+def wiresSolution(segment:str, prefix:str):
+    wireLogicVariable = None
+    serialIsOdd = False
+    if prefix[:1] in [ODD_NO_VOWEL, ODD_VOWEL]:
+        serialIsOdd = True
+    segmentList = []
+    for letter in segment:
+        segmentList.append(letter)
+    if len(segment) == 3:
+        if WIRE_RED not in segmentList:
+            wireLogicVariable = 1
+        elif segmentList[2] == WIRE_WHITE:
+            wireLogicVariable = 2
+        elif segmentList.count(WIRE_BLUE) >= 2:
+            if segmentList[2] == WIRE_BLUE:
+                wireLogicVariable = 2
+            else:
+                wireLogicVariable = 1
+        else:
+            wireLogicVariable = 2
+    if len(segment) == 4:
+        if segmentList.count(WIRE_RED) > 1:
+            wireLogicVariable = segment.rfind(WIRE_RED)
+        elif ((segmentList[-1] == WIRE_YELLOW) and (WIRE_RED not in segmentList)):
+            wireLogicVariable = 0
+        elif segmentList.count(WIRE_BLUE) == 1:
+            wireLogicVariable = 0
+        elif segmentList.count(WIRE_YELLOW) > 1:
+            wireLogicVariable = 3
+        else:
+            wireLogicVariable = 1
+    if len(segment) == 5:
+        if ((segmentList[4] == WIRE_BLACK) and (serialIsOdd)):
+            wireLogicVariable = 3
+        elif ((segmentList.count(WIRE_RED) == 1) and (segmentList.count(WIRE_YELLOW) > 1)):
+            wireLogicVariable = 0
+        elif segmentList.count(WIRE_BLACK) == 0:
+            wireLogicVariable = 1
+        else:
+            wireLogicVariable = 0
+    if len(segment) == 6:
+        if ((segmentList.count(WIRE_YELLOW) == 0) and (serialIsOdd)):
+            wireLogicVariable = 2
+        elif ((segmentList.count(WIRE_YELLOW) == 1) and (segmentList.count(WIRE_WHITE) > 1)):
+            wireLogicVariable = 3
+        elif segmentList.count(WIRE_RED) == 0:
+            wireLogicVariable = 5
+        else:
+            wireLogicVariable = 3
+    return wireLogicVariable
 
 #button
 def createButton():
