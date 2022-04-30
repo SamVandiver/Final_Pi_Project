@@ -86,6 +86,10 @@ for module in moduleTable:
 #   load the stuff
 classes.loadImages(moduleTable["button"][1], moduleTable["simon"][1], moduleTable["morse"][1], moduleTable["maze"][1], moduleTable["passwords"][1], moduleTable["needy"][1])
 
+#   wire logic stuff 
+if moduleTable["wires"][0]:
+    pass
+
 #   the button logic stuff
 if moduleTable["button"][0]:
     if moduleTable["button"][1] == f"{CODE.BUTTON_BLUE}{CODE.BUTTON_ABORT}":
