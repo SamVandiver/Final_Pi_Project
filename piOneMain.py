@@ -46,7 +46,7 @@ PIWIDTH = 480
 pygame.init()
  
 #   makes the screen and clock
-screen = pygame.display.set_mode((PIHEIGHT, PIWIDTH), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((PIHEIGHT, PIWIDTH))   #   pygame.display.set_mode((PIHEIGHT, PIWIDTH), pygame.FULLSCREEN) for fullscreen
 clock = pygame.time.Clock()
 
 #   window title
@@ -109,6 +109,9 @@ if moduleTable["button"][0]:
     if DEBUG:
         print(buttonLogicVariable)
 
+if moduleTable["wires"][0]:
+    wireLogicVariable = CODE.wiresSolution(moduleTable["wires"][1], prefix)
+
 #   create all the rects
 #   (rects go here)
 startButtonRect = pygame.Rect(250, 300, 300, 250)
@@ -149,6 +152,10 @@ while running:
                         screen.blit(classes.morseBase, moduleTable["morse"][4])
                     if moduleTable["simon"][0]:
                         screen.blit(classes.simonBase, moduleTable["simon"][4])
+                    if moduleTable["maze"][0]:
+                        screen.blit(classes.mazeBase, moduleTable["maze"][4])
+                    if moduleTable["needy"][0]:
+                        screen.blit(classes.capacitorBase, moduleTable["needy"][4])
 
 
     #   main game
@@ -176,7 +183,7 @@ while running:
             #   if the mouse is clicked while over the module
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #   button
-                if (((200 < mouse[0] < 400) and (200 < mouse[0] < 400)) and (moduleTable["button"][0] == True)):
+                if buttonRect.collidepoint(mouse):
                     buttonModulePressedStart = pygame.time.get_ticks()
 
             if event.type == pygame.MOUSEBUTTONUP:
