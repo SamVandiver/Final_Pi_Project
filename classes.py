@@ -153,6 +153,41 @@ def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegmen
     global simonBase
     simonBase = pygame.image.load("simon.png")
 
+    #gets everything from modules/mazes
+    os.chdir("../mazes")
+    global mazeBase
+    mazeBase = pygame.image.load("mazeBase.png")
+
+    #   gets everything from modules/needy
+    os.chdir("../needy")
+    global capacitorBase
+    capacitorBase = pygame.image.load("capacitor.png")
+
+def createRects(simonTrue, morseTrue, mazeTrue, passwordsTrue, needyTrue):
+    if simonTrue:
+        simonBlueRect = pygame.Rect(432, 128, 67, 67)
+        simonYellowRect = pygame.Rect(501, 128, 67, 67)
+        simonGreenRect = pygame.Rect(432, 128, 67, 67)
+        simonRedRect = pygame.Rect(501, 197, 67, 67)
+    if morseTrue:
+        morseUpRect = pygame.Rect(521, 339, 52, 40)
+        morseTXRect = pygame.Rect(521, 379, 52, 30)
+        morseDownRect = pygame.Rect(521, 409, 52, 40)
+    if mazeTrue:
+        pass
+    if passwordsTrue:
+        passButtonSize = (17, 17)
+        passOneUpRect = pygame.Rect((230, 330), passButtonSize)
+        passOneDownRect = pygame.Rect((230, 409), passButtonSize)
+        passTwoUpRect = pygame.Rect((271, 330), passButtonSize)
+        passTwoDownRect = pygame.Rect((271, 409), passButtonSize)
+        passThreeUpRect = pygame.Rect((302, 330), passButtonSize)
+        passThreeDownRect = pygame.Rect((302, 409), passButtonSize)
+        passFourUpRect = pygame.Rect((305, 330), passButtonSize)
+        passFourDownRect = pygame.Rect((305, 409), passButtonSize)
+    if needyTrue:
+        needyDischargeRect = pygame.Rect(714, 372, 66, 66)
+
 #   function for checking ifthe game is over
 def gameEndCheck(strikes, moduleTable):
     win = True
