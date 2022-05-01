@@ -40,13 +40,13 @@ if DEBUG:
 #   constants
 #       pi stuff
 PIHEIGHT = 800
-PIWIDTH = 600
+PIWIDTH = 480
 
 #   start pygame
 pygame.init()
  
 #   makes the screen and clock
-screen = pygame.display.set_mode((PIHEIGHT, PIWIDTH))
+screen = pygame.display.set_mode((PIHEIGHT, PIWIDTH), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 
 #   window title
@@ -55,7 +55,7 @@ pygame.display.set_caption("Keep Talking")
 #   variables
 gamestate = "starting"
 strikes = 0
-timerLocation = (250,50)
+timerLocation = (0,0)
 timeLimit = 300000  #   5 minutes in miliseconds
 startTime = 0   #   updates when the game starts
 buttonLogicVariable = "click"  #   is "click" if button must be pressed and immediately released, otherwise is the color of the button indicator strip as a string
@@ -67,12 +67,12 @@ buttonShortPress = 500
 moduleTable = {
 
     "wires"     : [False, None, None, None, None],
-    "button"    : [False, None, None, None, (200, 200)],
-    "simon"     : [False, None, None, None, (400, 200)],
-    "morse"     : [False, None, None, None, (400, 400)],
-    "maze"      : [False, None, None, None, (600, 200)],
-    "passwords" : [False, None, None, None, (200, 400)],
-    "needy"     : [False, None, None, None, (600, 400)]
+    "button"    : [False, None, None, None, (200, 80)],
+    "simon"     : [False, None, None, None, (400, 80)],
+    "morse"     : [False, None, None, None, (400, 280)],
+    "maze"      : [False, None, None, None, (600, 80)],
+    "passwords" : [False, None, None, None, (200, 280)],
+    "needy"     : [False, None, None, None, (600, 280)]
 
 }
 
@@ -109,8 +109,9 @@ if moduleTable["button"][0]:
     if DEBUG:
         print(buttonLogicVariable)
 
-#   create all the objects
-#   (objects go here)
+#   create all the rects
+#   (rects go here)
+startButtonRect = pygame.Rect(250, 300, 300, 250)
 
 
 #   starting game loop, handles the main menu
@@ -134,7 +135,7 @@ while running:
             #   checks when the mouse is pressed
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #   if the mouse is clicked while over the begin button then change gamestate to playing and setup the main window
-                if 250 < mouse[0] < 550 and 375 < mouse[1] < 525:
+                if startButtonRect.collidepoint(mouse):
                     gamestate = "playing"
                     startTime = pygame.time.get_ticks()
                     timeLimit += startTime
@@ -161,7 +162,7 @@ while running:
             secondsRemaining = "0" + secondsRemaining
         timerText = classes.timerFont.render(f"{minutesRemaining}:{secondsRemaining}", False, (255, 0, 0))
         screen.blit(classes.strikeList[strikes], timerLocation)
-        screen.blit(timerText, (350,80))
+        screen.blit(timerText, (100,30))
         if currentTime >= timeLimit:
             screen.blit(classes.loseScreen, (0,0))
             gamestate = "over"

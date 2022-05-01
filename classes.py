@@ -4,7 +4,7 @@ import codeGenLibrary as CODE
 
 #   adds a bunch of stuff so vs code doesnt get pissed at me
 screen = pygame.display.set_mode((0, 0))
-PIHEIGHT = 600
+PIHEIGHT = 480
 PIWIDTH = 800
 
 
