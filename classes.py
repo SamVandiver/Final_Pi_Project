@@ -106,77 +106,106 @@ def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegmen
 
     #   gets everything from buttoncolors
     os.chdir("../buttoncolors")
-    global buttonBase
-    if buttonSegment[:1] == CODE.BUTTON_BLUE:
-        buttonBase = pygame.image.load("buttonBlue.png")
-    elif buttonSegment[:1] == CODE.BUTTON_YELLOW:
-        buttonBase = pygame.image.load("buttonYellow.png")
-    elif buttonSegment[:1] == CODE.BUTTON_WHITE:
-        buttonBase = pygame.image.load("buttonWhite.png")
-    elif buttonSegment[:1] == CODE.BUTTON_RED:
-        buttonBase = pygame.image.load("buttonRed.png")
+    if buttonSegment != None:
+        global buttonBase
+        if buttonSegment[:1] == CODE.BUTTON_BLUE:
+            buttonBase = pygame.image.load("buttonBlue.png")
+        elif buttonSegment[:1] == CODE.BUTTON_YELLOW:
+            buttonBase = pygame.image.load("buttonYellow.png")
+        elif buttonSegment[:1] == CODE.BUTTON_WHITE:
+            buttonBase = pygame.image.load("buttonWhite.png")
+        elif buttonSegment[:1] == CODE.BUTTON_RED:
+            buttonBase = pygame.image.load("buttonRed.png")
 
     #   gets everything from buttonwords
     os.chdir("../buttonwords")
-    global buttonWord
-    wordForButton = ""
-    #   determines what word goes on the button
-    if buttonSegment[1:2] == CODE.BUTTON_ABORT:
-        wordForButton += "abort"
-    elif buttonSegment[1:2] == CODE.BUTTON_DETONATE:
-        wordForButton += "detonate"
-    elif buttonSegment[1:2] == CODE.BUTTON_PRESS:
-        wordForButton += "press"
-    elif buttonSegment[1:2] == CODE.BUTTON_HOLD:
-        wordForButton += "hold"
-    #   determines color of word
-    if ((buttonSegment[:1] == CODE.BUTTON_BLUE) or (buttonSegment[:1] == CODE.BUTTON_RED)):
-        wordForButton += "White"
-    else:
-        wordForButton += "Black"
-    #   adds .png to the wordForButton
-    wordForButton += ".png"
-    buttonWord = pygame.image.load(wordForButton)
+    if buttonSegment != None:
+        global buttonWord
+        wordForButton = ""
+        #   determines what word goes on the button
+        if buttonSegment[1:2] == CODE.BUTTON_ABORT:
+            wordForButton += "abort"
+        elif buttonSegment[1:2] == CODE.BUTTON_DETONATE:
+            wordForButton += "detonate"
+        elif buttonSegment[1:2] == CODE.BUTTON_PRESS:
+            wordForButton += "press"
+        elif buttonSegment[1:2] == CODE.BUTTON_HOLD:
+            wordForButton += "hold"
+        #   determines color of word
+        if ((buttonSegment[:1] == CODE.BUTTON_BLUE) or (buttonSegment[:1] == CODE.BUTTON_RED)):
+            wordForButton += "White"
+        else:
+            wordForButton += "Black"
+        #   adds .png to the wordForButton
+        wordForButton += ".png"
+        buttonWord = pygame.image.load(wordForButton)
 
     #   gets everything from modules/passwords
     os.chdir("../modules/passwords")
-    global passwordsBase
-    passwordsBase = pygame.image.load("passwords.png")
+    if passwordsSegment != None:
+        global passwordsBase
+        passwordsBase = pygame.image.load("passwords.png")
 
     #   gets everything from modules/morse
     os.chdir("../morse")
-    global morseBase
-    morseBase = pygame.image.load("morse.png")
+    if morseSegment != None:
+        global morseBase
+        morseBase = pygame.image.load("morse.png")
 
     #   gets everything from modules/simon
     os.chdir("../simon")
-    global simonBase
-    simonBase = pygame.image.load("simon.png")
+    if simonSegment != None:
+        global simonBase
+        simonBase = pygame.image.load("simon.png")
 
     #gets everything from modules/mazes
     os.chdir("../mazes")
-    global mazeBase
-    mazeBase = pygame.image.load("mazeBase.png")
+    if mazeSegment != None:
+        global mazeBase
+        mazeBase = pygame.image.load("mazeBase.png")
 
     #   gets everything from modules/needy
     os.chdir("../needy")
-    global capacitorBase
-    capacitorBase = pygame.image.load("capacitor.png")
+    if needySegment != None:
+        global capacitorBase
+        capacitorBase = pygame.image.load("capacitor.png")
 
 def createRects(simonTrue, morseTrue, mazeTrue, passwordsTrue, needyTrue):
     if simonTrue:
+        global simonBlueRect
+        global simonYellowRect
+        global simonGreenRect
+        global simonRedRect
         simonBlueRect = pygame.Rect(432, 128, 67, 67)
         simonYellowRect = pygame.Rect(501, 128, 67, 67)
         simonGreenRect = pygame.Rect(432, 128, 67, 67)
         simonRedRect = pygame.Rect(501, 197, 67, 67)
     if morseTrue:
+        global morseUpRect
+        global morseTXRect
+        global morseDownRect
         morseUpRect = pygame.Rect(521, 339, 52, 40)
         morseTXRect = pygame.Rect(521, 379, 52, 30)
         morseDownRect = pygame.Rect(521, 409, 52, 40)
     if mazeTrue:
-        pass
+        global mazeUpRect
+        global mazeRightRect
+        global mazeLeftRect
+        global mazeDownRect
+        mazeUpRect = pygame.Rect(687, 91, 26, 26)
+        mazeRightRect = pygame.Rect(763, 167, 26, 26)
+        mazeLeftRect = pygame.Rect(611, 167, 26, 26)
+        mazeDownRect = pygame.Rect(687, 243, 26, 26)
     if passwordsTrue:
         passButtonSize = (17, 17)
+        global passOneUpRect
+        global passOneDownRect
+        global passTwoUpRect
+        global passTwoDownRect
+        global passThreeUpRect
+        global passThreeDownRect
+        global passFourUpRect
+        global passFourDownRect
         passOneUpRect = pygame.Rect((230, 330), passButtonSize)
         passOneDownRect = pygame.Rect((230, 409), passButtonSize)
         passTwoUpRect = pygame.Rect((271, 330), passButtonSize)
@@ -186,6 +215,7 @@ def createRects(simonTrue, morseTrue, mazeTrue, passwordsTrue, needyTrue):
         passFourUpRect = pygame.Rect((305, 330), passButtonSize)
         passFourDownRect = pygame.Rect((305, 409), passButtonSize)
     if needyTrue:
+        global needyDischargeRect
         needyDischargeRect = pygame.Rect(714, 372, 66, 66)
 
 #   function for checking ifthe game is over
