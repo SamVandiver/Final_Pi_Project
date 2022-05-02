@@ -28,7 +28,7 @@ finally:
 
 #   code
 #   (example code for now)
-code = "123.b12.a1111.c.d.e.f.g.h"
+code = "123.a1111.c.d.e.f.g.h"
 
 #   print cwd for debugging purposes
 if DEBUG:
@@ -183,44 +183,91 @@ while running:
             #   if the mouse is clicked while over the module
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #   button
-                if buttonRect.collidepoint(mouse):
-                    buttonModulePressedStart = pygame.time.get_ticks()
+                if moduleTable["button"][0]:
+                    if buttonRect.collidepoint(mouse):
+                        buttonModulePressedStart = pygame.time.get_ticks()
+                if moduleTable["morse"][0]:
+                    if classes.morseUpRect.collidepoint(mouse):
+                        pass
+                    if classes.morseTXRect.collidepoint(mouse):
+                        pass
+                    if classes.morseDownRect.collidepoint(mouse):
+                        pass
+                if moduleTable["passwords"][0]:
+                    if classes.passOneUpRect.collidepoint(mouse):
+                        pass
+                    if classes.passOneDownRect.collidepoint(mouse):
+                        pass
+                    if classes.passTwoUpRect.collidepoint(mouse):
+                        pass
+                    if classes.passTwoDownRect.collidepoint(mouse):
+                        pass
+                    if classes.passThreeUpRect.collidepoint(mouse):
+                        pass
+                    if classes.passThreeDownRect.collidepoint(mouse):
+                        pass
+                    if classes.passFourUpRect.collidepoint(mouse):
+                        pass
+                    if classes.passFourDownRect.collidepoint(mouse):
+                        pass
+                if moduleTable["simon"][0]:
+                    if classes.simonBlueRect.collidepoint(mouse):
+                        pass
+                    if classes.simonGreenRect.collidepoint(mouse):
+                        pass
+                    if classes.simonRedRect.collidepoint(mouse):
+                        pass
+                    if classes.simonYellowRect.collidepoint(mouse):
+                        pass
+                if moduleTable["maze"][0]:
+                    if classes.mazeUpRect.collidepoint(mouse):
+                        pass
+                    if classes.mazeDownRect.collidepoint(mouse):
+                        pass
+                    if classes.mazeLeftRect.collidepoint(mouse):
+                        pass
+                    if classes.mazeRightRect.collidepoint(mouse):
+                        pass
+                if moduleTable["needy"][0]:
+                    if classes.needyDischargeRect.collidepoint(mouse):
+                        pass 
 
             if event.type == pygame.MOUSEBUTTONUP:
-                if (buttonRect.collidepoint(mouse) and buttonModulePressedStart > 0):
-                    if DEBUG:
-                        active = moduleTable["button"][0]
-                        print(f"button module pressed, active={active}")
-                    #   finds how long the button was pressed
-                    buttonReleasedTime = pygame.time.get_ticks()
-                    buttonHeldElapsed = buttonReleasedTime - buttonModulePressedStart
-                    #   if the button is completed successfully, its isTheModuleActive value is set to false
-                    if buttonLogicVariable == "click" and buttonHeldElapsed <= buttonShortPress:
-                        moduleTable["button"][0] = False
-                    elif buttonLogicVariable == "yellow" and ("5" in minutesRemaining or "5" in secondsRemaining):
-                        moduleTable["button"][0] = False
-                    elif buttonLogicVariable == "blue" and ("4" in minutesRemaining or "4" in secondsRemaining):
-                        moduleTable["button"][0] = False
-                    elif buttonLogicVariable == "white" and ("1" in minutesRemaining or "1" in secondsRemaining):
-                        moduleTable["button"][0] = False
-                    if DEBUG:
-                        active = moduleTable["button"][0]
-                        print(f"button module complete, active={active}")
-                    #   if the module is still active after all the completion checks, the module is deactivated and a strike is recieved.
-                    if moduleTable["button"][0]:
-                        moduleTable["button"][0] = False
-                        strikes +=1
-                    
-                    #   checks if the game is over, put this block after every win/loss check
-                    result = classes.gameEndCheck(strikes, moduleTable)
-                    if DEBUG:
-                        print(result)
-                    if result == "win":
-                        gamestate = "over"
-                        screen.blit(classes.winScreen, (0,0))
-                    elif result == "lose":
-                        gamestate = "over"
-                        screen.blit(classes.loseScreen, (0,0))
+                if moduleTable["button"][0]:
+                    if (buttonRect.collidepoint(mouse) and buttonModulePressedStart > 0):
+                        if DEBUG:
+                            active = moduleTable["button"][0]
+                            print(f"button module pressed, active={active}")
+                        #   finds how long the button was pressed
+                        buttonReleasedTime = pygame.time.get_ticks()
+                        buttonHeldElapsed = buttonReleasedTime - buttonModulePressedStart
+                        #   if the button is completed successfully, its isTheModuleActive value is set to false
+                        if buttonLogicVariable == "click" and buttonHeldElapsed <= buttonShortPress:
+                            moduleTable["button"][0] = False
+                        elif buttonLogicVariable == "yellow" and ("5" in minutesRemaining or "5" in secondsRemaining):
+                            moduleTable["button"][0] = False
+                        elif buttonLogicVariable == "blue" and ("4" in minutesRemaining or "4" in secondsRemaining):
+                            moduleTable["button"][0] = False
+                        elif buttonLogicVariable == "white" and ("1" in minutesRemaining or "1" in secondsRemaining):
+                            moduleTable["button"][0] = False
+                        if DEBUG:
+                            active = moduleTable["button"][0]
+                            print(f"button module complete, active={active}")
+                        #   if the module is still active after all the completion checks, the module is deactivated and a strike is recieved.
+                        if moduleTable["button"][0]:
+                            moduleTable["button"][0] = False
+                            strikes +=1
+
+                        #   checks if the game is over, put this block after every win/loss check
+                        result = classes.gameEndCheck(strikes, moduleTable)
+                        if DEBUG:
+                            print(result)
+                        if result == "win":
+                            gamestate = "over"
+                            screen.blit(classes.winScreen, (0,0))
+                        elif result == "lose":
+                            gamestate = "over"
+                            screen.blit(classes.loseScreen, (0,0))
 
         
 
