@@ -28,7 +28,7 @@ finally:
 
 #   code
 #   (example code for now)
-code = "123.a1111.c.d.e.f.g.h"
+code = "123.b31.a1111.c.d.e.f.g.h"
 
 #   print cwd for debugging purposes
 if DEBUG:
@@ -84,7 +84,9 @@ if moduleTable["button"][0]:
     buttonIndicatorColors = ["blue", "white", "yellow"]
     buttonShortPress = 500
 if moduleTable["simon"][0]:
-    simonOrderList = [0, random.randint(0,3)]
+    simonOrderList = [0, 1, 2, 3, 4]
+    simonSequenceNumber = 0 #      old, new
+    simonSetToChange = True
 
 #   load the stuff
 classes.loadImages(moduleTable["button"][1], moduleTable["simon"][1], moduleTable["morse"][1], moduleTable["maze"][1], moduleTable["passwords"][1], moduleTable["needy"][1])
@@ -168,6 +170,7 @@ while running:
         timeRemaining = timeLimit - currentTime
         minutesRemaining = str(timeRemaining // 60000)
         secondsRemaining = str((timeRemaining % 60000)//1000)
+        
         if len(secondsRemaining) == 1:
             secondsRemaining = "0" + secondsRemaining
         timerText = classes.timerFont.render(f"{minutesRemaining}:{secondsRemaining}", False, (255, 0, 0))
@@ -176,6 +179,25 @@ while running:
         if currentTime >= timeLimit:
             screen.blit(classes.loseScreen, (0,0))
             gamestate = "over"
+
+        #   blinking stuff
+        if int(secondsRemaining) % 2 == 0:
+            #   simon blinks
+            if moduleTable["simon"][0]:
+                if simonSetToChange:
+                    if simonSequenceNumber == 0:
+                        pass
+                    else:
+                        screen.blit(classes.simonUnlitList[simonSequenceNumber], classes.simonCoordsList[simonSequenceNumber])
+                    simonSequenceNumber += 1
+                    simonSequenceNumber %= len(simonOrderList)
+                    if simonSequenceNumber == 0:
+                        pass
+                    else:
+                        screen.blit(classes.simonLitList[simonSequenceNumber], classes.simonCoordsList[simonSequenceNumber])
+                    simonSetToChange = False
+        else:
+            simonSetToChange = True
 
         #   checks the pygame event stack
         for event in pygame.event.get():

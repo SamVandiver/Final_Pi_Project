@@ -164,7 +164,9 @@ def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegmen
         global simonYellowUnlit
         global simonBlueLit
         global simonBlueUnlit
-        global simonList
+        global simonLitList
+        global simonUnlitList
+        global simonCoordsList
         simonBase = pygame.image.load("simon.png")
         simonGreenLit = pygame.image.load("greenLit.png")
         simonGreenUnlit = pygame.image.load("greenUnlit.png")
@@ -174,15 +176,34 @@ def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegmen
         simonYellowUnlit = pygame.image.load("yellowUnlit.png")
         simonBlueLit = pygame.image.load("blueLit.png")
         simonBlueUnlit = pygame.image.load("blueUnlit.png")
-        simonList = [simonGreenLit,
-        simonRedLit,
-        simonYellowLit,
-        simonBlueLit,
-        simonGreenUnlit,
-        simonRedUnlit,
-        simonYellowUnlit,
-        simonBlueUnlit
+        simonLitList = [
+            None,
+            simonGreenLit,
+            simonRedLit,
+            simonYellowLit,
+            simonBlueLit
         ]
+        simonUnlitList = [
+            None,
+            simonGreenUnlit,
+            simonRedUnlit,
+            simonYellowUnlit,
+            simonBlueUnlit
+        ]
+
+        simonBlueCoords = (432, 128)
+        simonYellowCoords = (501, 128)
+        simonGreenCoords = (432, 197)
+        simonRedCoords = (501, 197)
+        
+        simonCoordsList = [
+            None,
+            simonGreenCoords,
+            simonRedCoords,
+            simonYellowCoords,
+            simonBlueCoords
+        ]
+        
 
     #gets everything from modules/mazes
     os.chdir("../mazes")
@@ -202,10 +223,18 @@ def createRects(simonTrue, morseTrue, mazeTrue, passwordsTrue, needyTrue):
         global simonYellowRect
         global simonGreenRect
         global simonRedRect
+        global simonRectList
         simonBlueRect = pygame.Rect(432, 128, 67, 67)
         simonYellowRect = pygame.Rect(501, 128, 67, 67)
         simonGreenRect = pygame.Rect(432, 128, 67, 67)
         simonRedRect = pygame.Rect(501, 197, 67, 67)
+        simonRectList = [
+            None,
+            simonGreenRect,
+            simonRedRect,
+            simonYellowRect,
+            simonBlueRect
+        ]
     if morseTrue:
         global morseUpRect
         global morseTXRect
