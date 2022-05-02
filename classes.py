@@ -156,7 +156,33 @@ def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegmen
     os.chdir("../simon")
     if simonSegment != None:
         global simonBase
+        global simonGreenLit
+        global simonGreenUnlit
+        global simonRedLit
+        global simonRedUnlit
+        global simonYellowLit
+        global simonYellowUnlit
+        global simonBlueLit
+        global simonBlueUnlit
+        global simonList
         simonBase = pygame.image.load("simon.png")
+        simonGreenLit = pygame.image.load("greenLit.png")
+        simonGreenUnlit = pygame.image.load("greenUnlit.png")
+        simonRedLit = pygame.image.load("redLit.png")
+        simonRedUnlit = pygame.image.load("redUnlit.png")
+        simonYellowLit = pygame.image.load("yellowLit.png")
+        simonYellowUnlit = pygame.image.load("yellowUnlit.png")
+        simonBlueLit = pygame.image.load("blueLit.png")
+        simonBlueUnlit = pygame.image.load("blueUnlit.png")
+        simonList = [simonGreenLit,
+        simonRedLit,
+        simonYellowLit,
+        simonBlueLit,
+        simonGreenUnlit,
+        simonRedUnlit,
+        simonYellowUnlit,
+        simonBlueUnlit
+        ]
 
     #gets everything from modules/mazes
     os.chdir("../mazes")
