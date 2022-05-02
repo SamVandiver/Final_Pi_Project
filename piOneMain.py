@@ -52,16 +52,6 @@ clock = pygame.time.Clock()
 #   window title
 pygame.display.set_caption("Keep Talking")
 
-#   variables
-gamestate = "starting"
-strikes = 0
-timerLocation = (0,0)
-timeLimit = 300000  #   5 minutes in miliseconds
-startTime = 0   #   updates when the game starts
-buttonLogicVariable = "click"  #   is "click" if button must be pressed and immediately released, otherwise is the color of the button indicator strip as a string
-buttonIndicatorColors = ["blue", "white", "yellow"]
-buttonShortPress = 500
-
 #   table for all the stuff about each modules
 #       "module" : [isTheModuleActive, codeSegment, solutionList, image, (coord,inates)]
 moduleTable = {
@@ -83,12 +73,24 @@ for module in moduleTable:
     if moduleTable[module][1] != None:
         moduleTable[module][0] = True
 
+#   variables
+gamestate = "starting"
+strikes = 0
+timerLocation = (0,0)
+timeLimit = 300000  #   5 minutes in miliseconds
+startTime = 0   #   updates when the game starts
+if moduleTable["button"][0]:
+    buttonLogicVariable = "click"  #   is "click" if button must be pressed and immediately released, otherwise is the color of the button indicator strip as a string
+    buttonIndicatorColors = ["blue", "white", "yellow"]
+    buttonShortPress = 500
+if moduleTable["simon"][0]:
+    simonOrderList = [0, random.randint(0,3)]
+
 #   load the stuff
 classes.loadImages(moduleTable["button"][1], moduleTable["simon"][1], moduleTable["morse"][1], moduleTable["maze"][1], moduleTable["passwords"][1], moduleTable["needy"][1])
 
-#   wire logic stuff 
-if moduleTable["wires"][0]:
-    pass
+#   get all the rectangles
+classes.createRects(moduleTable["simon"][0], moduleTable["morse"][0], moduleTable["maze"][0], moduleTable["passwords"][0], moduleTable["needy"][0], )
 
 #   the button logic stuff
 if moduleTable["button"][0]:
@@ -109,6 +111,7 @@ if moduleTable["button"][0]:
     if DEBUG:
         print(buttonLogicVariable)
 
+#   wire logic stuff
 if moduleTable["wires"][0]:
     wireLogicVariable = CODE.wiresSolution(moduleTable["wires"][1], prefix)
 
