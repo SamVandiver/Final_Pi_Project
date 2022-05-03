@@ -5,6 +5,7 @@ import random
 import socket
 import sys
 import os
+from time import sleep
 # import RPi.GPIO as GPIO
 import codeGenLibrary as CODE
 import classes
@@ -84,9 +85,9 @@ if moduleTable["button"][0]:
     buttonIndicatorColors = ["blue", "white", "yellow"]
     buttonShortPress = 500
 if moduleTable["simon"][0]:
-    simonOrderList = [0, 1, 2, 3, 4]
-    simonSequenceNumber = 0 #      old, new
-    simonSetToChange = True
+    simonOrderList = [0, 2, 2, 3]    #   list that determines the order the Simon module blinks in, must start with 0 to have a blank
+    simonSequenceNumber = 0 #   old, new
+    simonSetToChange = True #   variable that prevents lights from flashing during transition
 
 #   load the stuff
 classes.loadImages(moduleTable["button"][1], moduleTable["simon"][1], moduleTable["morse"][1], moduleTable["maze"][1], moduleTable["passwords"][1], moduleTable["needy"][1])
@@ -185,19 +186,24 @@ while running:
             #   simon blinks
             if moduleTable["simon"][0]:
                 if simonSetToChange:
+                    if DEBUG:
+                        print(f"\nNew Update\nsimonSequenceNumber: {simonSequenceNumber}")
                     if simonSequenceNumber == 0:
                         pass
                     else:
-                        screen.blit(classes.simonUnlitList[simonSequenceNumber], classes.simonCoordsList[simonSequenceNumber])
+                        screen.blit(classes.simonUnlitList[simonOrderList[simonSequenceNumber]], classes.simonCoordsList[simonOrderList[simonSequenceNumber]])
                     simonSequenceNumber += 1
                     simonSequenceNumber %= len(simonOrderList)
+                    if DEBUG:
+                        print(f"New simonSequenceNumber: {simonSequenceNumber}")
                     if simonSequenceNumber == 0:
                         pass
                     else:
-                        screen.blit(classes.simonLitList[simonSequenceNumber], classes.simonCoordsList[simonSequenceNumber])
+                        screen.blit(classes.simonLitList[simonOrderList[simonSequenceNumber]], classes.simonCoordsList[simonOrderList[simonSequenceNumber]])
                     simonSetToChange = False
         else:
-            simonSetToChange = True
+            if moduleTable["simon"][0]:
+                simonSetToChange = True
 
         #   checks the pygame event stack
         for event in pygame.event.get():
