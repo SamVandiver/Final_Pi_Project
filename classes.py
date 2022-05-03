@@ -80,7 +80,9 @@ def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegmen
 
     #   get the fonts
     global timerFont
+    global indicatorFont
     timerFont = pygame.font.SysFont("Arial", 30)
+    indicatorFont = pygame.font.SysFont("Calibri", 20)
 
     #   start loading stuff
     os.chdir("assets/screens")
@@ -284,6 +286,13 @@ def gameEndCheck(strikes, moduleTable):
                 win = False
         if win:
             return "win"
+        
+def createIndicators(prefix):
+    #   return a 6-letter serial number and one of the 3-letter indicators from the manual
+    #   given the input prefix
+    #   reminder: first character is the parameters for the serial number, second is for the indicator.
+    #   use the constants like CODE.ODD_NO_VOWEL and CODE.CAR_INDICATOR
+    #   for bonus points return the number of batteries as well
 
 # morse code dictionary
 MC={'A':'.-',      'B':'-...',
