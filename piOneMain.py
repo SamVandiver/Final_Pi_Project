@@ -86,8 +86,8 @@ if moduleTable["button"][0]:
     buttonIndicatorColors = ["blue", "white", "yellow"]
     buttonShortPress = 500
 if moduleTable["simon"][0]:
-    simonInputList = [0,]          #   The list determined by the user that shows their inputs; should end up matching the order list
-    simonOrderList = [0, 2, 2, 3]  #   list that determines the order the Simon module blinks in, must start with 0 to have a blank
+    simonInputList = [0]          #   The list determined by the user that shows their inputs; should end up matching the order list
+    simonOrderList = [0, random.randint(1,4)]  #   list that determines the order the Simon module blinks in, must start with 0 to have a blank
     simonSequenceNumber = 0        #   old, new
     simonSetToChange = True        #   variable that prevents lights from flashing during transition
 
@@ -247,16 +247,16 @@ while running:
                 if moduleTable["simon"][0]:
                     if classes.simonBlueRect.collidepoint(mouse):
                         simonInputList.append(4)
+                        if simonInputList == simonOrderList[1:(len(simonInputList)+1)]:
+                            pass
+                        else:
+                            strikes += 1
                     if classes.simonGreenRect.collidepoint(mouse):
                         simonInputList.append(1)
                     if classes.simonRedRect.collidepoint(mouse):
                         simonInputList.append(2)
                     if classes.simonYellowRect.collidepoint(mouse):
                         simonInputList.append(3)
-                    # checks to see if input is in accordance with the sequence
-                    if simonInputList == simonOrderList:
-                        if len(simonInputList) == 4: moduleTable["simon"][0] = False
-                    else: strikes += 1
                 if moduleTable["maze"][0]:
                     if classes.mazeUpRect.collidepoint(mouse):
                         pass
