@@ -28,8 +28,7 @@ finally:
 '''
 
 #   code
-#   (example code for now)
-code = "121.b31.a1111.c.e.f.g.h"
+code = CODE.generateCode()
 
 #   print cwd for debugging purposes
 if DEBUG:
