@@ -1,7 +1,7 @@
 import pygame
 import os
 import codeGenLibrary as CODE
-from random import choice
+import random
 
 #   adds a bunch of stuff so vs code doesnt get pissed at me
 screen = pygame.display.set_mode((0, 0))
@@ -307,32 +307,44 @@ def createIndicators(prefix):
     #   use the constants like CODE.ODD_NO_VOWEL and CODE.CAR_INDICATOR
     #   for bonus points return the number of batteries as well
     serial = ""
+    firstconsonants = random.randint(0,4)
     VOWELS = ["a","e","i","o","u"]
     CONSONANTS = ["b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z"]
+    ODDS = ["1", "3", "5", "7", "9"]
+    EVENS = ["2", "4", "6", "8"]
+    for padding in range(firstconsonants):
+        serial += random.choice(CONSONANTS)
     if prefix[0] == CODE.ODD_VOWEL or CODE.EVEN_VOWEL:
-        for _ in "123456":
-            serial += choice(VOWELS)
+        serial += random.choice(VOWELS)
     else:
-        for _ in "123456":
-            serial += choice(CONSONANTS)
+        serial += random.choice(CONSONANTS)
+    for padding in range(4-firstconsonants):
+        serial += random.choice(CONSONANTS)
+    serial = serial.upper()
+    if prefix[0] == CODE.ODD_VOWEL or CODE.ODD_NO_VOWEL:
+        serial += random.choice(ODDS)
+    else:
+        serial += random.choice(EVENS)
 
     if prefix[1] == CODE.NO_INDICATOR:
         indicator = None
     elif prefix[1] == CODE.CAR_INDICATOR:
         indicator = "CAR"
-    elif prefix[1] == CODE.OTHER_INDICATOR:
+    elif prefix[1] == CODE.FRK_INDICATOR:
         indicator = "FRK"
+    elif prefix[1] == CODE.OTHER_INDICATOR:
+        indicator = random.choice(CODE.INDICATORS_LIST)
 
-    if prefix[2] == BATTERIES_0:
+    if prefix[2] == CODE.BATTERIES_0:
         numBatteries = 0
-    elif prefix[2] == BATTERIES_1:
+    elif prefix[2] == CODE.BATTERIES_1:
         numBatteries = 1
-    elif prefix[2] == BATTERIES_2:
+    elif prefix[2] == CODE.BATTERIES_2:
         numBatteries = 2
-    elif prefix[2] == BATTERIES_3:
+    elif prefix[2] == CODE.BATTERIES_3:
         numBatteries = 3
     # returns [('a-z')*6 + random { 'None, CAR, FRK, etc' } + '0-3']
-    return serial + indicator + numBatteries
+    return serial, indicator, numBatteries
 
 # Function to encrypt the string according to the morse code chart
 def encrypt(message):
@@ -366,3 +378,64 @@ def encrypt(message):
         # 1 space indicates different characters and 2 indicates different words
         else: C += ' '
     return C
+
+
+#   green, red, yellow, blue = 1, 2, 3, 4
+def translateSimon(sionInput, strikes, serial):
+    if ["A", "E", "I", "O", "U"] in serial:
+        if strikes == 0:
+            if simonInput == 4:
+                return 2
+            elif simonInput == 2:
+                return 4
+            elif simonInput == 3:
+                return 1
+            elif simonInput == 1:
+                return 3
+        elif strikes == 1:
+            if simonInput == 3:
+                return 2
+            elif simonInput == 1:
+                return 4
+            elif simonInput == 4:
+                return 1
+            elif simonInput == 2:
+                return 3
+        elif strikes == 2:
+            if simonInput == 1:
+                return 2
+            elif simonInput == 2:
+                return 4
+            elif simonInput == 3:
+                return 1
+            elif simonInput == 4:
+                return 3
+    else:
+        if strikes == 0:
+            if simonInput == 4:
+                return 2
+            elif simonInput == 3:
+                return 4
+            elif simonInput == 1:
+                return 1
+            elif simonInput == 2:
+                return 3
+        elif strikes == 1:
+            if simonInput == 2:
+                return 2
+            elif simonInput == 4:
+                return 4
+            elif simonInput == 3:
+                return 1
+            elif simonInput == 1:
+                return 3
+        elif strikes == 2:
+            if simonInput == 3:
+                return 2
+            elif simonInput == 1:
+                return 4
+            elif simonInput == 4:
+                return 1
+            elif simonInput == 2:
+                return 3
+        

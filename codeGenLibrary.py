@@ -155,6 +155,17 @@ NO_INDICATOR = "1"
 CAR_INDICATOR = "2"
 FRK_INDICATOR = "3"
 OTHER_INDICATOR = "4"
+INDICATORS_LIST = [
+    "SND",
+    "CLR",
+    "IND",
+    "FRQ",
+    "SIG",
+    "NSA",
+    "MSA",
+    "TRN",
+    "BOB"
+]
 
 #       batteries
 BATTERIES_0 = "0"
@@ -336,10 +347,10 @@ def generateCode():
     for _ in setup:
         while True:
             x = input(f"Do you want the {_} module? y/n\n")
-            if x == "y" or "yes" or "Y" or "Yes" or "YEs" or "YES" or "yES" or "yeS" or "YeS" or "yEs":
+            if x.lower() == "y" or "yes":
                 create = True
                 break
-            elif x == "n" or "no" or "N" or "No" or "NO" or "nO":
+            elif x.lower() == "n" or "no":
                 create = False
                 break
             else:

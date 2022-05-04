@@ -2,6 +2,7 @@ import random
 import socket
 import sys
 import codeGenLibrary as CODE
+import classes
 #   if you want to use a funtion in godeGenLibrary like generateCode() then do code.generateCode()
 
 '''
@@ -33,7 +34,6 @@ while True:
     finally:
         connection.close()
 '''
-
-code = CODE.generateCode(4)
-CODE.splitCode(code)
+print(serial)
+code = CODE.generateCode()
 print(code)

@@ -27,8 +27,9 @@ finally:
     TCP_SOCKET.close()
 '''
 
-#   code
-code = CODE.generateCode()
+#   code        121.b31.a1111.c.e.f.g.h
+#   (example code for now)
+code = input("Enter game code:")
 
 #   print cwd for debugging purposes
 if DEBUG:
@@ -96,6 +97,9 @@ classes.loadImages(moduleTable["button"][1], moduleTable["simon"][1], moduleTabl
 #   get all the rectangles
 classes.createRects(moduleTable["simon"][0], moduleTable["morse"][0], moduleTable["maze"][0], moduleTable["passwords"][0], moduleTable["needy"][0], )
 
+#   get all the indicators
+serial, indicator, numBatteries = classes.createIndicators(prefix)
+
 #   the button logic stuff
 if moduleTable["button"][0]:
     if moduleTable["button"][1] == f"{CODE.BUTTON_BLUE}{CODE.BUTTON_ABORT}":
@@ -149,8 +153,12 @@ while running:
                     gamestate = "playing"
                     startTime = pygame.time.get_ticks()
                     timeLimit += startTime
+                    indicatorText = classes.timerFont.render(indicator, False, (0, 0, 0))
+                    serialText = classes.timerFont.render(serial, False, (0, 0, 0))
                     screen.blit(classes.mainScreenBase, (0,0))
                     screen.blit(classes.battery, (600, 0))
+                    screen.blit(indicatorText, (80, 410))
+                    screen.blit(serialText, (350, 20))
                     if moduleTable["button"][0]:
                         buttonRect = screen.blit(classes.buttonBase, moduleTable["button"][4])
                         screen.blit(classes.buttonWord, moduleTable["button"][4])
@@ -245,11 +253,35 @@ while running:
                         pass
                 if moduleTable["simon"][0]:
                     if classes.simonBlueRect.collidepoint(mouse):
-                        simonInputList.append(4)
+                        simonTranslated = classes.translateSimon(4, strikes, serial)
+                        simonInputList.append(simonTranslated)
                         if simonInputList == simonOrderList[1:(len(simonInputList)+1)]:
-                            pass
+                            if len(simonOrderList) == 4:
+                                moduleTable["simon"][0] = False
+                                result = classes.gameEndCheck(strikes, moduleTable)
+                                if DEBUG:
+                                    print(result)
+                                if result == "win":
+                                    gamestate = "over"
+                                    screen.blit(classes.winScreen, (0,0))
+                                elif result == "lose":
+                                    gamestate = "over"
+                                    screen.blit(classes.loseScreen, (0,0))
+                            elif len(simonOrderList) - 1 == len(simonInputList):
+                                simonImputList = []
+                                simonOrderList.append(random.randint(1,4))
+                            else: pass
                         else:
                             strikes += 1
+                            result = classes.gameEndCheck(strikes, moduleTable)
+                            if DEBUG:
+                                print(result)
+                            if result == "win":
+                                gamestate = "over"
+                                screen.blit(classes.winScreen, (0,0))
+                            elif result == "lose":
+                                gamestate = "over"
+                                screen.blit(classes.loseScreen, (0,0))
                     if classes.simonGreenRect.collidepoint(mouse):
                         simonInputList.append(1)
                     if classes.simonRedRect.collidepoint(mouse):
