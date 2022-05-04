@@ -227,6 +227,12 @@ while running:
                 if moduleTable["button"][0]:
                     if buttonRect.collidepoint(mouse):
                         buttonModulePressedStart = pygame.time.get_ticks()
+                        if buttonLogicVariable == "yellow":
+                            pygame.draw.rect(screen, (255, 255, 0), pygame.Rect(365, 245, 28, 28))
+                        elif buttonLogicVariable == "blue":
+                            pygame.draw.rect(screen, (0, 0, 255), pygame.Rect(365, 245, 28, 28))
+                        elif buttonLogicVariable == "white":
+                            pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(365, 245, 28, 28))
                 if moduleTable["morse"][0]:
                     if classes.morseUpRect.collidepoint(mouse):
                         pass
@@ -283,11 +289,95 @@ while running:
                                 gamestate = "over"
                                 screen.blit(classes.loseScreen, (0,0))
                     if classes.simonGreenRect.collidepoint(mouse):
-                        simonInputList.append(1)
+                        simonTranslated = classes.translateSimon(1, strikes, serial)
+                        simonInputList.append(simonTranslated)
+                        if simonInputList == simonOrderList[1:(len(simonInputList)+1)]:
+                            if len(simonOrderList) == 4:
+                                moduleTable["simon"][0] = False
+                                result = classes.gameEndCheck(strikes, moduleTable)
+                                if DEBUG:
+                                    print(result)
+                                if result == "win":
+                                    gamestate = "over"
+                                    screen.blit(classes.winScreen, (0,0))
+                                elif result == "lose":
+                                    gamestate = "over"
+                                    screen.blit(classes.loseScreen, (0,0))
+                            elif len(simonOrderList) - 1 == len(simonInputList):
+                                simonImputList = []
+                                simonOrderList.append(random.randint(1,4))
+                            else: pass
+                        else:
+                            strikes += 1
+                            result = classes.gameEndCheck(strikes, moduleTable)
+                            if DEBUG:
+                                print(result)
+                            if result == "win":
+                                gamestate = "over"
+                                screen.blit(classes.winScreen, (0,0))
+                            elif result == "lose":
+                                gamestate = "over"
+                                screen.blit(classes.loseScreen, (0,0))
                     if classes.simonRedRect.collidepoint(mouse):
-                        simonInputList.append(2)
+                        simonTranslated = classes.translateSimon(2, strikes, serial)
+                        simonInputList.append(simonTranslated)
+                        if simonInputList == simonOrderList[1:(len(simonInputList)+1)]:
+                            if len(simonOrderList) == 4:
+                                moduleTable["simon"][0] = False
+                                result = classes.gameEndCheck(strikes, moduleTable)
+                                if DEBUG:
+                                    print(result)
+                                if result == "win":
+                                    gamestate = "over"
+                                    screen.blit(classes.winScreen, (0,0))
+                                elif result == "lose":
+                                    gamestate = "over"
+                                    screen.blit(classes.loseScreen, (0,0))
+                            elif len(simonOrderList) - 1 == len(simonInputList):
+                                simonImputList = []
+                                simonOrderList.append(random.randint(1,4))
+                            else: pass
+                        else:
+                            strikes += 1
+                            result = classes.gameEndCheck(strikes, moduleTable)
+                            if DEBUG:
+                                print(result)
+                            if result == "win":
+                                gamestate = "over"
+                                screen.blit(classes.winScreen, (0,0))
+                            elif result == "lose":
+                                gamestate = "over"
+                                screen.blit(classes.loseScreen, (0,0))
                     if classes.simonYellowRect.collidepoint(mouse):
-                        simonInputList.append(3)
+                        simonTranslated = classes.translateSimon(3, strikes, serial)
+                        simonInputList.append(simonTranslated)
+                        if simonInputList == simonOrderList[1:(len(simonInputList)+1)]:
+                            if len(simonOrderList) == 4:
+                                moduleTable["simon"][0] = False
+                                result = classes.gameEndCheck(strikes, moduleTable)
+                                if DEBUG:
+                                    print(result)
+                                if result == "win":
+                                    gamestate = "over"
+                                    screen.blit(classes.winScreen, (0,0))
+                                elif result == "lose":
+                                    gamestate = "over"
+                                    screen.blit(classes.loseScreen, (0,0))
+                            elif len(simonOrderList) - 1 == len(simonInputList):
+                                simonImputList = []
+                                simonOrderList.append(random.randint(1,4))
+                            else: pass
+                        else:
+                            strikes += 1
+                            result = classes.gameEndCheck(strikes, moduleTable)
+                            if DEBUG:
+                                print(result)
+                            if result == "win":
+                                gamestate = "over"
+                                screen.blit(classes.winScreen, (0,0))
+                            elif result == "lose":
+                                gamestate = "over"
+                                screen.blit(classes.loseScreen, (0,0))
                 if moduleTable["maze"][0]:
                     if classes.mazeUpRect.collidepoint(mouse):
                         pass

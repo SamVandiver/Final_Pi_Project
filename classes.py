@@ -381,8 +381,8 @@ def encrypt(message):
 
 
 #   green, red, yellow, blue = 1, 2, 3, 4
-def translateSimon(sionInput, strikes, serial):
-    if ["A", "E", "I", "O", "U"] in serial:
+def translateSimon(simonInput, strikes, prefix):
+    if prefix[0] == CODE.ODD_VOWEL or CODE.EVEN_VOWEL:
         if strikes == 0:
             if simonInput == 4:
                 return 2
