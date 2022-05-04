@@ -550,9 +550,7 @@ def passwordsSolution(segment):
 #needy
 def createNeedy():
     needySegment = "." + NEEDY_START
-    needyModule = choice(NEEDY_MODULES)
-    # returns ['.h' + '1'-'2']
-    return needySegment + needyModule
+    return needySegment
 
 def needySolution(segment):
     pass

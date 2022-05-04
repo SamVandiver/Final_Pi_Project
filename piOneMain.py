@@ -29,7 +29,7 @@ finally:
 
 #   code
 #   (example code for now)
-code = "123.b31.a1111.c.d.e.f.g.h"
+code = "121.b31.a1111.c.e.f.g.h"
 
 #   print cwd for debugging purposes
 if DEBUG:
@@ -69,6 +69,7 @@ moduleTable = {
 
 prefix, moduleTable["wires"][1], moduleTable["button"][1], moduleTable["simon"][1], moduleTable["morse"][1], moduleTable["maze"][1], moduleTable["passwords"][1], moduleTable["needy"][1], = CODE.splitCode(code)
 
+print("piOneMain prefix = " + prefix)
 #   if splitCode returns a string instead of None, set the module to active
 for module in moduleTable:
     if moduleTable[module][1] != None:
@@ -90,7 +91,7 @@ if moduleTable["simon"][0]:
     simonSetToChange = True #   variable that prevents lights from flashing during transition
 
 #   load the stuff
-classes.loadImages(moduleTable["button"][1], moduleTable["simon"][1], moduleTable["morse"][1], moduleTable["maze"][1], moduleTable["passwords"][1], moduleTable["needy"][1])
+classes.loadImages(moduleTable["button"][1], moduleTable["simon"][1], moduleTable["morse"][1], moduleTable["maze"][1], moduleTable["passwords"][1], moduleTable["needy"][1], prefix)
 
 #   get all the rectangles
 classes.createRects(moduleTable["simon"][0], moduleTable["morse"][0], moduleTable["maze"][0], moduleTable["passwords"][0], moduleTable["needy"][0], )
@@ -149,6 +150,7 @@ while running:
                     startTime = pygame.time.get_ticks()
                     timeLimit += startTime
                     screen.blit(classes.mainScreenBase, (0,0))
+                    screen.blit(classes.battery, (600, 0))
                     if moduleTable["button"][0]:
                         buttonRect = screen.blit(classes.buttonBase, moduleTable["button"][4])
                         screen.blit(classes.buttonWord, moduleTable["button"][4])
@@ -191,7 +193,7 @@ while running:
                     if simonSequenceNumber == 0:
                         pass
                     else:
-                        screen.blit(classes.simonUnlitList[simonOrderList[simonSequenceNumber]], classes.simonCoordsList[simonOrderList[simonSequenceNumber]])
+                        classes.simonRectList[simonSequenceNumber] = screen.blit(classes.simonUnlitList[simonOrderList[simonSequenceNumber]], classes.simonCoordsList[simonOrderList[simonSequenceNumber]])
                     simonSequenceNumber += 1
                     simonSequenceNumber %= len(simonOrderList)
                     if DEBUG:
@@ -199,7 +201,7 @@ while running:
                     if simonSequenceNumber == 0:
                         pass
                     else:
-                        screen.blit(classes.simonLitList[simonOrderList[simonSequenceNumber]], classes.simonCoordsList[simonOrderList[simonSequenceNumber]])
+                        classes.simonRectList[simonSequenceNumber] = screen.blit(classes.simonLitList[simonOrderList[simonSequenceNumber]], classes.simonCoordsList[simonOrderList[simonSequenceNumber]])
                     simonSetToChange = False
         else:
             if moduleTable["simon"][0]:

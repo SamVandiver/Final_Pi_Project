@@ -76,7 +76,7 @@ class Button(Module):
 
 
 #   functions that dont belong in codeGenLibrary
-def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegment:str, passwordsSegment:str, needySegment:str):
+def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegment:str, passwordsSegment:str, needySegment:str, prefix):
 
     #   get the fonts
     global timerFont
@@ -141,6 +141,18 @@ def loadImages(buttonSegment:str, simonSegment:str, morseSegment:str, mazeSegmen
         #   adds .png to the wordForButton
         wordForButton += ".png"
         buttonWord = pygame.image.load(wordForButton)
+        
+    #   gets everything from batteries
+    os.chdir("../batteries")
+    global battery
+    if prefix[2:3] == CODE.BATTERIES_3:
+        battery = pygame.image.load("batteries3.png")
+    elif prefix[2:3] == CODE.BATTERIES_2:
+        battery = pygame.image.load("batteries2.png")
+    elif prefix[2:3] == CODE.BATTERIES_1:
+        battery = pygame.image.load("batteries1.png")
+    elif prefix[2:3] == CODE.BATTERIES_0:
+        battery = pygame.image.load("batteries0.png")
 
     #   gets everything from modules/passwords
     os.chdir("../modules/passwords")
@@ -288,6 +300,7 @@ def gameEndCheck(strikes, moduleTable):
             return "win"
         
 def createIndicators(prefix):
+    pass
     #   return a 6-letter serial number and one of the 3-letter indicators from the manual
     #   given the input prefix
     #   reminder: first character is the parameters for the serial number, second is for the indicator.
