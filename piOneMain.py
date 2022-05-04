@@ -54,7 +54,7 @@ clock = pygame.time.Clock()
 pygame.display.set_caption("Keep Talking")
 
 #   table for all the stuff about each modules
-#       "module" : [isTheModuleActive, codeSegment, solutionList, image, (coord,inates)]
+#       "module" : [isTheModuleActive, codeSegment, solutionList, image, (coordinates)]
 moduleTable = {
 
     "wires"     : [False, None, None, None, None],
@@ -79,16 +79,17 @@ for module in moduleTable:
 gamestate = "starting"
 strikes = 0
 timerLocation = (0,0)
-timeLimit = 300000  #   5 minutes in miliseconds
-startTime = 0   #   updates when the game starts
+timeLimit = 300000    #   5 minutes in miliseconds
+startTime = 0         #   updates when the game starts
 if moduleTable["button"][0]:
     buttonLogicVariable = "click"  #   is "click" if button must be pressed and immediately released, otherwise is the color of the button indicator strip as a string
     buttonIndicatorColors = ["blue", "white", "yellow"]
     buttonShortPress = 500
 if moduleTable["simon"][0]:
-    simonOrderList = [0, 2, 2, 3]    #   list that determines the order the Simon module blinks in, must start with 0 to have a blank
-    simonSequenceNumber = 0 #   old, new
-    simonSetToChange = True #   variable that prevents lights from flashing during transition
+    simonInputList = [0,]          #   The list determined by the user that shows their inputs; should end up matching the order list
+    simonOrderList = [0, 2, 2, 3]  #   list that determines the order the Simon module blinks in, must start with 0 to have a blank
+    simonSequenceNumber = 0        #   old, new
+    simonSetToChange = True        #   variable that prevents lights from flashing during transition
 
 #   load the stuff
 classes.loadImages(moduleTable["button"][1], moduleTable["simon"][1], moduleTable["morse"][1], moduleTable["maze"][1], moduleTable["passwords"][1], moduleTable["needy"][1], prefix)
@@ -245,13 +246,17 @@ while running:
                         pass
                 if moduleTable["simon"][0]:
                     if classes.simonBlueRect.collidepoint(mouse):
-                        pass
+                        simonInputList.append(4)
                     if classes.simonGreenRect.collidepoint(mouse):
-                        pass
+                        simonInputList.append(1)
                     if classes.simonRedRect.collidepoint(mouse):
-                        pass
+                        simonInputList.append(2)
                     if classes.simonYellowRect.collidepoint(mouse):
-                        pass
+                        simonInputList.append(3)
+                    # checks to see if input is in accordance with the sequence
+                    if simonInputList == simonOrderList:
+                        if len(simonInputList) == 4: moduleTable["simon"][0] = False
+                    else: strikes += 1
                 if moduleTable["maze"][0]:
                     if classes.mazeUpRect.collidepoint(mouse):
                         pass
@@ -263,7 +268,7 @@ while running:
                         pass
                 if moduleTable["needy"][0]:
                     if classes.needyDischargeRect.collidepoint(mouse):
-                        pass 
+                        pass
 
             if event.type == pygame.MOUSEBUTTONUP:
                 if moduleTable["button"][0]:
@@ -289,7 +294,7 @@ while running:
                         #   if the module is still active after all the completion checks, the module is deactivated and a strike is recieved.
                         if moduleTable["button"][0]:
                             moduleTable["button"][0] = False
-                            strikes +=1
+                            strikes += 1
 
                         #   checks if the game is over, put this block after every win/loss check
                         result = classes.gameEndCheck(strikes, moduleTable)
