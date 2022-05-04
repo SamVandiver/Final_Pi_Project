@@ -328,21 +328,39 @@ NEEDY_MODULES = [
     NEEDY_VENT,
     NEEDY_CAPACITOR]
 
-def generateCode(difficulty = 0):
+def generateCode():
     # equals '{1-4}+{1-4}{0-3}'
     code = generatePrefix()
-    if difficulty <= 3:
-        for _ in range(difficulty):
-            run = choice(easyModules)
-            print(run)
+    create = False
+    setup = ["wires", "button", "simon", "morse", "maze", "passwords", "needy"]
+    for _ in setup:
+        while True:
+            x = input(f"Do you want the {_} module? y/n\n")
+            if x == "y" or "yes" or "Y" or "Yes" or "YEs" or "YES" or "yES" or "yeS" or "YeS" or "yEs":
+                create = True
+                break
+            elif x == "n" or "no" or "N" or "No" or "NO" or "nO":
+                create = False
+                break
+            else:
+                print("Please retry.")
+        if create is True:
+            if _ == "wires":
+                run = createWires()
+            elif _ == "button":
+                run = createButton()
+            elif _ == "simon":
+                run = createSimon()
+            elif _ == "morse":
+                run = createMorse()
+            elif _ == "maze":
+                run = createMaze()
+            elif _ == "passwords":
+                run = createPasswords()
+            elif _ == "needy":
+                run = createNeedy()
             code += run
-    if difficulty >= 4:
-        for _ in range(difficulty-3):
-            run = choice(hardModules)
-            print(run)
-            code += run
-    # difficulty <= 3 returns: '[1-4 + 1-4 + 0-3] + random { [.a + ('1'-'5')*(3-5)] + [.b + 1-4 + 1-4] + [.c + (1-4)*6] }'
-    # difficulty >= 4 returns: '[1-4 + 1-4 + 0-3] + random { [.e + (0-9+a-f)] + [.f + 1-9] + [.g + (0-9+a-e) + 1-6] }'
+    # returns: '[1-4 + 1-4 + 0-3] + random { [.a + ('1'-'5')*(3-5)] + [.b + 1-4 + 1-4] + [.c + (1-4)*6] + [.e + (0-9+a-f)] + [.f + 1-9] + [.g + (0-9+a-e) + 1-6] }'
     return code
 
 def splitCode(code:str):
@@ -554,6 +572,3 @@ def createNeedy():
 
 def needySolution(segment):
     pass
-
-easyModules=[createWires(), createButton(), createSimon()]
-hardModules=[createMemory(), createMaze(), createPasswords()]
