@@ -1,6 +1,7 @@
 import pygame
 import os
 import codeGenLibrary as CODE
+from random import choice
 
 #   adds a bunch of stuff so vs code doesnt get pissed at me
 screen = pygame.display.set_mode((0, 0))
@@ -287,7 +288,7 @@ def createRects(simonTrue, morseTrue, mazeTrue, passwordsTrue, needyTrue):
         global needyDischargeRect
         needyDischargeRect = pygame.Rect(714, 372, 66, 66)
 
-#   function for checking ifthe game is over
+#   function for checking if the game is over
 def gameEndCheck(strikes, moduleTable):
     win = True
     if strikes >= 3:
@@ -300,47 +301,64 @@ def gameEndCheck(strikes, moduleTable):
             return "win"
         
 def createIndicators(prefix):
-    pass
     #   return a 6-letter serial number and one of the 3-letter indicators from the manual
     #   given the input prefix
     #   reminder: first character is the parameters for the serial number, second is for the indicator.
     #   use the constants like CODE.ODD_NO_VOWEL and CODE.CAR_INDICATOR
     #   for bonus points return the number of batteries as well
+    serial = ""
+    VOWELS = ["a","e","i","o","u"]
+    CONSONANTS = ["b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z"]
+    if prefix[0] == CODE.ODD_VOWEL or CODE.EVEN_VOWEL:
+        for _ in "123456":
+            serial += choice(VOWELS)
+    else:
+        for _ in "123456":
+            serial += choice(CONSONANTS)
 
-# morse code dictionary
-MC={'A':'.-',      'B':'-...',
-    'C':'-.-.',    'D':'-..',
-    'E':'.',       'F':'..-.',
-    'G':'--.',     'H':'....',
-    'I':'..',      'J':'.---',
-    'K':'-.-',     'L':'.-..',
-    'M':'--',      'N':'-.',
-    'O':'---',     'P':'.--.',
-    'Q':'--.-',    'R':'.-.',
-    'S':'...',     'T':'-',
-    'U':'..-',     'V':'...-',
-    'W':'.--',     'X':'-..-',
-    'Y':'-.--',    'Z':'--..',
-    '1':'.----',   '2':'..---',
-    '3':'...--',   '4':'....-',
-    '5':'.....',   '6':'-....',
-    '7':'--...',   '8':'---..',
-    '9':'----.',   '0':'-----',
-    ', ':'--..--', '.':'.-.-.-',
-    '?':'..--..',  '/':'-..-.',
-    '-':'-....-',  '(':'-.--.',
-    ')':'-.--.-'}
+    if prefix[1] == CODE.NO_INDICATOR:
+        indicator = None
+    elif prefix[1] == CODE.CAR_INDICATOR:
+        indicator = "CAR"
+    elif prefix[1] == CODE.OTHER_INDICATOR:
+        indicator = "FRK"
 
-def SIMON(strikes):
-    code = CODE.simonSegment
-    global message
-    message = input('Input code { }...')
-    guess = encrypt(message)
-    # if guess != code: pi.strike()
-    # else: print('Good job.')
+    if prefix[2] == BATTERIES_0:
+        numBatteries = 0
+    elif prefix[2] == BATTERIES_1:
+        numBatteries = 1
+    elif prefix[2] == BATTERIES_2:
+        numBatteries = 2
+    elif prefix[2] == BATTERIES_3:
+        numBatteries = 3
+    # returns [('a-z')*6 + random { 'None, CAR, FRK, etc' } + '0-3']
+    return serial + indicator + numBatteries
 
 # Function to encrypt the string according to the morse code chart
 def encrypt(message):
+    # morse code dictionary
+    MC={'A':'.-',      'B':'-...',
+        'C':'-.-.',    'D':'-..',
+        'E':'.',       'F':'..-.',
+        'G':'--.',     'H':'....',
+        'I':'..',      'J':'.---',
+        'K':'-.-',     'L':'.-..',
+        'M':'--',      'N':'-.',
+        'O':'---',     'P':'.--.',
+        'Q':'--.-',    'R':'.-.',
+        'S':'...',     'T':'-',
+        'U':'..-',     'V':'...-',
+        'W':'.--',     'X':'-..-',
+        'Y':'-.--',    'Z':'--..',
+        '1':'.----',   '2':'..---',
+        '3':'...--',   '4':'....-',
+        '5':'.....',   '6':'-....',
+        '7':'--...',   '8':'---..',
+        '9':'----.',   '0':'-----',
+        ', ':'--..--', '.':'.-.-.-',
+        '?':'..--..',  '/':'-..-.',
+        '-':'-....-',  '(':'-.--.',
+        ')':'-.--.-'}
     C = ''
     for character in message:
         # Looks up the dictionary and adds the correspponding morse code along with a space to separate morse codes for different characters
@@ -348,12 +366,3 @@ def encrypt(message):
         # 1 space indicates different characters and 2 indicates different words
         else: C += ' '
     return C
-
-def WIRES():
-    turn = int(input(f'{CODE.W}\n')) # Just for testing, normally the player would have to use the manual to get the right wire
-    turn -= 1 # Because indexing starts at 0
-    # if CODE.W[turn] == False: pi.strike()
-    # else:
-    #     print('Good job.')
-    #     CODE.W.pop(turn)
-    # print('Congratulations you have succesfully unplugged the correct wires.')
