@@ -7,6 +7,7 @@ import random
 screen = pygame.display.set_mode((0, 0))
 PIHEIGHT = 480
 PIWIDTH = 800
+DEBUG = True
 
 
 #   panel class and its children (obsolete)
@@ -314,34 +315,34 @@ def createIndicators(prefix):
     EVENS = ["2", "4", "6", "8"]
     for padding in range(firstconsonants):
         serial += random.choice(CONSONANTS)
-    if prefix[0] == CODE.ODD_VOWEL or CODE.EVEN_VOWEL:
+    if ((prefix[0:1] == CODE.ODD_VOWEL) or (prefix[0:1] == CODE.EVEN_VOWEL)):
         serial += random.choice(VOWELS)
     else:
         serial += random.choice(CONSONANTS)
     for padding in range(4-firstconsonants):
         serial += random.choice(CONSONANTS)
     serial = serial.upper()
-    if prefix[0] == CODE.ODD_VOWEL or CODE.ODD_NO_VOWEL:
+    if ((prefix[0:1] == CODE.ODD_VOWEL) or (CODE.ODD_NO_VOWEL)):
         serial += random.choice(ODDS)
     else:
         serial += random.choice(EVENS)
 
-    if prefix[1] == CODE.NO_INDICATOR:
+    if prefix[1:2] == CODE.NO_INDICATOR:
         indicator = None
-    elif prefix[1] == CODE.CAR_INDICATOR:
+    elif prefix[1:2] == CODE.CAR_INDICATOR:
         indicator = "CAR"
-    elif prefix[1] == CODE.FRK_INDICATOR:
+    elif prefix[1:2] == CODE.FRK_INDICATOR:
         indicator = "FRK"
-    elif prefix[1] == CODE.OTHER_INDICATOR:
+    elif prefix[1:2] == CODE.OTHER_INDICATOR:
         indicator = random.choice(CODE.INDICATORS_LIST)
 
-    if prefix[2] == CODE.BATTERIES_0:
+    if prefix[2:3] == CODE.BATTERIES_0:
         numBatteries = 0
-    elif prefix[2] == CODE.BATTERIES_1:
+    elif prefix[2:3] == CODE.BATTERIES_1:
         numBatteries = 1
-    elif prefix[2] == CODE.BATTERIES_2:
+    elif prefix[2:3] == CODE.BATTERIES_2:
         numBatteries = 2
-    elif prefix[2] == CODE.BATTERIES_3:
+    elif prefix[2:3] == CODE.BATTERIES_3:
         numBatteries = 3
     # returns [('a-z')*6 + random { 'None, CAR, FRK, etc' } + '0-3']
     return serial, indicator, numBatteries
@@ -382,7 +383,9 @@ def encrypt(message):
 
 #   green, red, yellow, blue = 1, 2, 3, 4
 def translateSimon(simonInput, strikes, prefix):
-    if prefix[0] == CODE.ODD_VOWEL or CODE.EVEN_VOWEL:
+    if DEBUG:
+        print(f"input, strikes, prefix: {simonInput}, {strikes}, {prefix}")
+    if ((prefix[0:1] == CODE.ODD_VOWEL) or (prefix[0:1] == CODE.EVEN_VOWEL)):
         if strikes == 0:
             if simonInput == 4:
                 return 2
