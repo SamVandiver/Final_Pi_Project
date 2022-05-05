@@ -274,62 +274,65 @@ MAZES_CHOICES = [
 
 #   passwords variables
 #       first letter of password
-PASSWORDS_A = "1"
-PASSWORDS_B = "2"
-PASSWORDS_C = "3"
-PASSWORDS_E = "4"
-PASSWORDS_F = "5"
-PASSWORDS_G = "6"
-PASSWORDS_H = "7"
-PASSWORDS_L = "8"
-PASSWORDS_N = "9"
-PASSWORDS_O = "0"
-PASSWORDS_P = "a"
-PASSWORDS_R = "b"
-PASSWORDS_S = "c"
-PASSWORDS_T = "d"
-PASSWORDS_W = "e"
+PASSWORDS_APEX = "00"
+PASSWORDS_BEAN = "01"
+PASSWORDS_BLUR = "02"
+PASSWORDS_BONK = "03"
+PASSWORDS_CARS = "04"
+PASSWORDS_CHAD = "05"
+PASSWORDS_COOL = "06"
+PASSWORDS_CARE = "07"
+PASSWORDS_CORE = "08"
+PASSWORDS_CURE = "09"
+PASSWORDS_DEAL = "10"
+PASSWORDS_FOUR = "11"
+PASSWORDS_HYPE = "12"
+PASSWORDS_LAMP = "13"
+PASSWORDS_MUSH = "14"
+PASSWORDS_QUIT = "15"
+PASSWORDS_ROAD = "16"
+PASSWORDS_SEAL = "17"
+PASSWORDS_SIGN = "18"
+PASSWORDS_SINE = "19"
+PASSWORDS_SLAG = "20"
+PASSWORDS_SPUR = "21"
+PASSWORDS_TYPO = "22"
+PASSWORDS_VILE = "23"
+PASSWORDS_WIFI = "24"
+PASSWORDS_XRAY = "25"
+PASSWORDS_YELP = "26"
+PASSWORDS_ZING = "27"
+PASSWORDS_SOLUTIONS = [
+    "APEX",
+    "BEAN",
+    "BLUR",
+    "BONK",
+    "CARS",
+    "CHAD",
+    "COOL",
+    "CARE",
+    "CORE",
+    "CURE",
+    "DEAL",
+    "FOUR",
+    "HYPE",
+    "LAMP",
+    "MUSH",
+    "QUIT",
+    "ROAD",
+    "SEAL",
+    "SIGN",
+    "SINE",
+    "SLAG",
+    "SPUR",
+    "TYPO",
+    "VILE",
+    "WIFI",
+    "XRAY",
+    "YELP",
+    "ZING"
+]
 
-#       which number password it is
-PASSWORDS_1 = "1"
-PASSWORDS_2 = "2"
-PASSWORDS_3 = "3"
-PASSWORDS_5 = "5"
-PASSWORDS_6 = "6"
-
-#       list of password numbers
-PASSWORDS_IDS = [
-    PASSWORDS_1,
-    PASSWORDS_2,
-    PASSWORDS_3,
-    PASSWORDS_5,
-    PASSWORDS_6]
-
-#       lists of first letters by number of passwords that have that first letter
-PASSWORDS_LEN1 = [
-    PASSWORDS_B,
-    PASSWORDS_C,
-    PASSWORDS_E,
-    PASSWORDS_G,
-    PASSWORDS_H,
-    PASSWORDS_N,
-    PASSWORDS_O,
-    PASSWORDS_R]
-
-PASSWORDS_LEN2 = [
-    PASSWORDS_F,
-    PASSWORDS_L]
-
-PASSWORDS_LEN3 = [
-    PASSWORDS_A,
-    PASSWORDS_P]
-
-PASSWORDS_LEN5 = [
-    PASSWORDS_S]
-
-PASSWORDS_LEN6 = [
-    PASSWORDS_T,
-    PASSWORDS_W]
 
 #   needy variables
 NEEDY_VENT = "1"
@@ -525,53 +528,11 @@ def mazeSolution(segment):
 #password
 def createPasswords():
     passwordsSegment = "." + PASSWORDS_START
-    password = choice(range(34))
-    passwordFirstLetter = ""
-    passwordNumber = ""
-    if password < 2:
-        passwordFirstLetter = PASSWORDS_A
-    elif password < 3:
-        passwordFirstLetter = PASSWORDS_B
-    elif password < 4:
-        passwordFirstLetter = PASSWORDS_C
-    elif password < 5:
-        passwordFirstLetter = PASSWORDS_E
-    elif password < 7:
-        passwordFirstLetter = PASSWORDS_F
-    elif password < 8:
-        passwordFirstLetter = PASSWORDS_G
-    elif password < 9:
-        passwordFirstLetter = PASSWORDS_H
-    elif password < 11:
-        passwordFirstLetter = PASSWORDS_L
-    elif password < 12:
-        passwordFirstLetter = PASSWORDS_N
-    elif password < 13:
-        passwordFirstLetter = PASSWORDS_O
-    elif password < 16:
-        passwordFirstLetter = PASSWORDS_P
-    elif password < 17:
-        passwordFirstLetter = PASSWORDS_R
-    elif password < 22:
-        passwordFirstLetter = PASSWORDS_S
-    elif password < 28:
-        passwordFirstLetter = PASSWORDS_T
-    elif password < 34:
-        passwordFirstLetter = PASSWORDS_W
-    
-    if passwordFirstLetter in PASSWORDS_LEN1:
-        passwordNumber = choice(PASSWORDS_IDS[:1])
-    if passwordFirstLetter in PASSWORDS_LEN2:
-        passwordNumber = choice(PASSWORDS_IDS[:2])
-    if passwordFirstLetter in PASSWORDS_LEN3:
-        passwordNumber = choice(PASSWORDS_IDS[:3])
-    if passwordFirstLetter in PASSWORDS_LEN5:
-        passwordNumber = choice(PASSWORDS_IDS[:4])
-    if passwordFirstLetter in PASSWORDS_LEN6:
-        passwordNumber = choice(PASSWORDS_IDS)
-
-    # returns ['.g' + ('0'-'9'+'a'-'e') + '1'-'6']
-    return passwordsSegment + passwordFirstLetter + passwordNumber
+    password = choice(range(27))
+    password = str(password)
+    if len(password) == 1:
+        password = "0" + password
+    return passwordsSegment + password
 
 def passwordsSolution(segment):
     pass

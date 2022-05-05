@@ -90,6 +90,11 @@ if moduleTable["simon"][0]:
     simonOrderList = [0, random.randint(1,4)]  #   list that determines the order the Simon module blinks in, must start with 0 to have a blank
     simonSequenceNumber = 0        #   old, new
     simonSetToChange = True        #   variable that prevents lights from flashing during transition
+if moduleTable["passwords"][0]:
+    passwordsFirstBarrel = []
+    passwordsSecondBarrel = []
+    passwrdsThirdBarrel = []
+    passwordsFourthBarrel = []
 
 #   load the stuff
 classes.loadImages(moduleTable["button"][1], moduleTable["simon"][1], moduleTable["morse"][1], moduleTable["maze"][1], moduleTable["passwords"][1], moduleTable["needy"][1], prefix)

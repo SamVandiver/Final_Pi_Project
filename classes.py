@@ -441,4 +441,29 @@ def translateSimon(simonInput, strikes, prefix):
                 return 1
             elif simonInput == 2:
                 return 3
+
+def passwordsSetBarrels(barrelOne, barrelTwo, barrelThree, barrelFour, barrelSegment)
+    solution = CODE.PASSWORDS_SOLUTIONS[int(barrelSegment)]
+    barrelList = [barrelOne, barrelTwo, barrelThree, barrelFour]
+    letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    lettersAsList = []
+    possibleSolutions = []
+    for letter in letters:
+        lettersAsList.append(letter)
+    barrelOne.append(solution[0:1])
+    barrelTwo.append(solution[1:2])
+    barrelThree.append(solution[2:3])
+    barrelFour.append(solution[3:])
+    for barrel in barrelList:
+        barrel.append(random.choice(lettersAsList))
+        random.shuffle(barrel)
+    for firstLetter in barrelOne:
+        for secondLetter in barrelTwo:
+            for thirdLetter in barrelThree:
+                for fourthLetter in barrelFour:
+                    permutation = firstLetter + secondLetter + thirdLetter + fourthLetter
+                    if permutation in CODE.PASSWORDS_SOLUTIONS:
+                        possibleSolutions.append(permutation)
+    if len(possibleSolutions) == 1:
+        return barrelOne, barrelTwo, barrelThree, barrelFour
         
